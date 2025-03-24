@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mega Buddies - Лидирующая коллекция на MegaETH</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/neon.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/spline-runtime@0.9.371/build/spline-runtime.min.js"></script>
 </head>
 <body>
     <div class="custom-cursor"></div>
+    <div class="noise-overlay"></div>
+    
+    <div class="toggle-container">
+        <button class="toggle-mode" aria-label="Toggle dark/light mode">
+            <span class="toggle-icon"></span>
+        </button>
+    </div>
     
     <header class="main-header">
         <div class="logo-container">
@@ -17,14 +28,19 @@
         </div>
         <nav class="main-nav">
             <ul>
-                <li><a href="#about">О проекте</a></li>
-                <li><a href="#collection">Коллекция</a></li>
-                <li><a href="#roadmap">Дорожная карта</a></li>
-                <li><a href="#community">Сообщество</a></li>
+                <li><a href="#about" class="nav-link">О проекте</a></li>
+                <li><a href="#collection" class="nav-link">Коллекция</a></li>
+                <li><a href="#roadmap" class="nav-link">Дорожная карта</a></li>
+                <li><a href="#community" class="nav-link">Сообщество</a></li>
             </ul>
         </nav>
         <div class="connect-wallet">
             <button class="wallet-btn">Подключить кошелек</button>
+        </div>
+        <div class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </header>
 
@@ -38,102 +54,266 @@
             </div>
         </div>
         <div class="hero-animation" id="hero-animation">
-            <!-- Three.js 3D анимация будет здесь -->
+            <!-- Spline 3D анимация будет здесь -->
+        </div>
+        <div class="scroll-indicator">
+            <span>Прокрутите вниз</span>
+            <div class="scroll-arrow"></div>
         </div>
     </section>
 
     <section class="about" id="about">
-        <div class="about-content">
+        <div class="section-header">
             <h2 class="section-heading">О Mega Buddies</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="about-content">
             <div class="about-grid">
-                <div class="about-item">
-                    <div class="about-icon"></div>
+                <div class="about-item" data-scroll>
+                    <div class="about-icon neon-glow"></div>
                     <h3>Уникальная коллекция</h3>
-                    <p>Описание уникальных особенностей коллекции Mega Buddies.</p>
+                    <p>Каждый Mega Buddy обладает уникальными характеристиками и способностями, созданными с использованием передовых алгоритмов.</p>
                 </div>
-                <div class="about-item">
-                    <div class="about-icon"></div>
+                <div class="about-item" data-scroll>
+                    <div class="about-icon neon-glow"></div>
                     <h3>Экосистема MegaETH</h3>
-                    <p>Как Mega Buddies интегрируются и развивают экосистему MegaETH.</p>
+                    <p>Mega Buddies интегрируются в экосистему MegaETH, предоставляя держателям эксклюзивные преимущества и возможности.</p>
                 </div>
-                <div class="about-item">
-                    <div class="about-icon"></div>
+                <div class="about-item" data-scroll>
+                    <div class="about-icon neon-glow"></div>
                     <h3>Преимущества сообщества</h3>
-                    <p>Что получают держатели NFT из коллекции Mega Buddies.</p>
+                    <p>Станьте частью растущего сообщества и получите доступ к эксклюзивным мероприятиям, дропам и будущим релизам.</p>
                 </div>
+            </div>
+            <div class="about-3d" id="about-3d">
+                <!-- Дополнительная 3D анимация -->
             </div>
         </div>
         <div class="parallax-element"></div>
     </section>
 
     <section class="collection-preview" id="collection">
-        <h2 class="section-heading">Познакомьтесь с Buddies</h2>
+        <div class="section-header">
+            <h2 class="section-heading">Познакомьтесь с Buddies</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="collection-filters">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="legendary">Легендарные</button>
+            <button class="filter-btn" data-filter="rare">Редкие</button>
+            <button class="filter-btn" data-filter="common">Обычные</button>
+        </div>
         <div class="collection-carousel">
             <div class="nft-card" data-rarity="legendary">
-                <div class="nft-image"></div>
+                <div class="nft-image neon-glow"></div>
                 <div class="nft-info">
-                    <h3 class="nft-name">Buddy #1</h3>
-                    <p class="nft-description">Описание персонажа</p>
+                    <h3 class="nft-name">Cosmic Buddy</h3>
+                    <p class="nft-description">Хранитель галактических тайн</p>
                     <div class="nft-traits">
                         <span class="trait">Редкость: Легендарная</span>
                         <span class="trait">Сила: 95</span>
                     </div>
                 </div>
+                <div class="card-hover-effect"></div>
             </div>
-            <!-- Дополнительные карточки NFT -->
+            <div class="nft-card" data-rarity="rare">
+                <div class="nft-image neon-glow"></div>
+                <div class="nft-info">
+                    <h3 class="nft-name">Neon Buddy</h3>
+                    <p class="nft-description">Мастер цифровых измерений</p>
+                    <div class="nft-traits">
+                        <span class="trait">Редкость: Редкая</span>
+                        <span class="trait">Интеллект: 88</span>
+                    </div>
+                </div>
+                <div class="card-hover-effect"></div>
+            </div>
+            <div class="nft-card" data-rarity="common">
+                <div class="nft-image neon-glow"></div>
+                <div class="nft-info">
+                    <h3 class="nft-name">Cyber Buddy</h3>
+                    <p class="nft-description">Исследователь виртуальных миров</p>
+                    <div class="nft-traits">
+                        <span class="trait">Редкость: Обычная</span>
+                        <span class="trait">Скорость: 75</span>
+                    </div>
+                </div>
+                <div class="card-hover-effect"></div>
+            </div>
+            <div class="nft-card" data-rarity="legendary">
+                <div class="nft-image neon-glow"></div>
+                <div class="nft-info">
+                    <h3 class="nft-name">Quantum Buddy</h3>
+                    <p class="nft-description">Повелитель квантовых частиц</p>
+                    <div class="nft-traits">
+                        <span class="trait">Редкость: Легендарная</span>
+                        <span class="trait">Энергия: 97</span>
+                    </div>
+                </div>
+                <div class="card-hover-effect"></div>
+            </div>
         </div>
         <div class="collection-cta">
             <a href="#full-collection" class="primary-btn">Показать всю коллекцию</a>
         </div>
+        <div class="collection-3d" id="collection-3d">
+            <!-- Интерактивная 3D модель коллекции -->
+        </div>
     </section>
 
     <section class="roadmap" id="roadmap">
-        <h2 class="section-heading">Дорожная карта</h2>
+        <div class="section-header">
+            <h2 class="section-heading">Дорожная карта</h2>
+            <div class="section-line"></div>
+        </div>
         <div class="interactive-roadmap">
-            <div class="roadmap-item active">
-                <div class="roadmap-icon"></div>
+            <div class="roadmap-item active" data-phase="1">
+                <div class="roadmap-icon neon-glow"></div>
                 <div class="roadmap-content">
-                    <h3>Q1 2025 - Запуск</h3>
+                    <h3>Фаза 1: Запуск</h3>
                     <p>Запуск основной коллекции Mega Buddies на блокчейне MegaETH</p>
+                    <ul class="roadmap-details">
+                        <li>Выпуск 10,000 уникальных Mega Buddies</li>
+                        <li>Интеграция с маркетплейсами</li>
+                        <li>Активация сообщества в Discord и Twitter</li>
+                    </ul>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                    <span class="status completed">Завершено</span>
                 </div>
             </div>
-            <!-- Дополнительные этапы дорожной карты -->
+            <div class="roadmap-item" data-phase="2">
+                <div class="roadmap-icon neon-glow"></div>
+                <div class="roadmap-content">
+                    <h3>Фаза 2: Расширение</h3>
+                    <p>Расширение экосистемы и добавление новых функций</p>
+                    <ul class="roadmap-details">
+                        <li>Запуск токена $BUDDY</li>
+                        <li>Стейкинг NFT с вознаграждениями</li>
+                        <li>Эксклюзивные мероприятия для держателей</li>
+                    </ul>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 65%"></div>
+                    </div>
+                    <span class="status in-progress">В процессе</span>
+                </div>
+            </div>
+            <div class="roadmap-item" data-phase="3">
+                <div class="roadmap-icon neon-glow"></div>
+                <div class="roadmap-content">
+                    <h3>Фаза 3: Метавселенная</h3>
+                    <p>Создание виртуального мира для Mega Buddies</p>
+                    <ul class="roadmap-details">
+                        <li>Запуск Mega Buddies Metaverse</li>
+                        <li>Виртуальные земельные участки</li>
+                        <li>Игровые механики P2E</li>
+                    </ul>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 10%"></div>
+                    </div>
+                    <span class="status planned">Запланировано</span>
+                </div>
+            </div>
+        </div>
+        <div class="roadmap-3d" id="roadmap-3d">
+            <!-- 3D визуализация дорожной карты -->
         </div>
     </section>
 
     <section class="community" id="community">
-        <h2 class="section-heading">Присоединяйтесь к сообществу</h2>
+        <div class="section-header">
+            <h2 class="section-heading">Присоединяйтесь к сообществу</h2>
+            <div class="section-line"></div>
+        </div>
         <div class="community-grid">
             <div class="twitter-feed">
                 <h3>Последние обновления</h3>
                 <div class="twitter-embed">
-                    <!-- Интеграция Twitter/X ленты -->
+                    <a class="twitter-timeline" data-height="500" href="https://x.com/mega_buddies">Твиты от Mega Buddies</a>
                 </div>
             </div>
             <div class="discord-community">
                 <h3>Discord сообщество</h3>
                 <p>Присоединяйтесь к более чем 10,000 участников сообщества Mega Buddies!</p>
+                <div class="discord-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">10K+</span>
+                        <span class="stat-label">Участников</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">24/7</span>
+                        <span class="stat-label">Активность</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">5+</span>
+                        <span class="stat-label">Ивентов в неделю</span>
+                    </div>
+                </div>
                 <a href="#" class="discord-btn">Присоединиться к Discord</a>
             </div>
+        </div>
+        <div class="community-3d" id="community-3d">
+            <!-- 3D визуализация сообщества -->
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="section-header">
+            <h2 class="section-heading">Будьте в курсе</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="newsletter-content">
+            <p>Подпишитесь на нашу рассылку, чтобы получать последние новости и обновления о Mega Buddies</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Ваш email" required>
+                <button type="submit" class="primary-btn">Подписаться</button>
+            </form>
         </div>
     </section>
 
     <footer class="main-footer">
-        <div class="footer-logo">
-            <img src="images/mega-buddies-logo.svg" alt="Mega Buddies Logo">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/mega-buddies-logo.svg" alt="Mega Buddies Logo">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#about">О проекте</a></li>
+                        <li><a href="#collection">Коллекция</a></li>
+                        <li><a href="#roadmap">Дорожная карта</a></li>
+                        <li><a href="#community">Сообщество</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Социальные сети</h4>
+                    <ul>
+                        <li><a href="https://x.com/mega_buddies">Twitter/X</a></li>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Medium</a></li>
+                        <li><a href="#">OpenSea</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Правовая информация</h4>
+                    <ul>
+                        <li><a href="#">Условия использования</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Лицензия</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="footer-links">
-            <a href="https://x.com/mega_buddies">Twitter/X</a>
-            <a href="#">Discord</a>
-            <a href="#">Medium</a>
-            <a href="#">OpenSea</a>
-        </div>
-        <div class="footer-copyright">
+        <div class="footer-bottom">
             <p>&copy; 2025 Mega Buddies. Все права защищены.</p>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
     <script src="js/three-animation.js"></script>
+    <script src="js/scroll-animations.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
