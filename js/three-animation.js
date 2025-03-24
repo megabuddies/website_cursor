@@ -157,8 +157,91 @@ function createParticleSystem() {
             uniform float time;
             uniform float pixelRatio;
             
-            void main() {
+                        void main() {
                 vColor = color;
                 vec3 pos = position;
                 
-                // Доб
+                // Добавляем небольшую анимацию частиц
+                pos.x += sin(time * 0.2 + position.z * 5.0) * 0.1;
+                pos.y += cos(time * 0.2 + position.x * 5.0) * 0.1;
+                pos.z += sin(time * 0.2 + position.y * 5.0) * 0.1;
+                
+                vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+                gl_PointSize = size * pixelRatio * (300.0 / -mvPosition.z);
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `,
+        fragmentShader: `
+            varying vec3 vColor;
+            
+            void main() {
+                // Создаем круглую точку
+                if (length(gl_PointCoord - vec2(0.5, 0.5)) > 0.475) discard;
+                
+                // Добавляем свечение по краям
+                float distFromCenter = length(gl_PointCoord - vec2(0.5, 0.5));
+                float glow = 0.5 * (1.0 - distFromCenter * 2.0);
+                
+                gl_FragColor = vec4(vColor, 1.0) * (1.0 + glow);
+            }
+        `,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        vertexColors: true
+    });
+    
+    particleSystem = new THREE.Points(particles, particleMaterial);
+    scene.add(particleSystem);
+}
+
+function onDocumentMouseMove(event) {
+    mouseX = (event.clientX - window.innerWidth / 2) / 100;
+    mouseY = (event.clientY - window.innerHeight / 2) / 100;
+}
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    // Обновляем uniform pixelRatio для частиц
+    if (particleSystem) {
+        particleSystem.material.uniforms.pixelRatio.value = window.devicePixelRatio;
+    }
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Обновляем время для анимации частиц
+    if (particleSystem) {
+        particleSystem.material.uniforms.time.value += 0.01;
+    }
+    
+    // Вращаем модель Buddy
+    if (buddyModel) {
+        buddyModel.rotation.x += 0.005;
+        buddyModel.rotation.y += 0.005;
+        
+        // Интерактивное движение в зависимости от положения курсора
+        buddyModel.rotation.x += (mouseY - buddyModel.rotation.x) * 0.05;
+        buddyModel.rotation.y += (mouseX - buddyModel.rotation.y) * 0.05;
+        
+        // Пульсация размера
+        const pulseFactor = Math.sin(Date.now() * 0.001) * 0.05 + 1;
+        buddyModel.scale.set(pulseFactor, pulseFactor, pulseFactor);
+    }
+    
+    // Вращаем систему частиц
+    if (particleSystem) {
+        particleSystem.rotation.x += 0.0005;
+        particleSystem.rotation.y += 0.0005;
+    }
+    
+    renderer.render(scene, camera);
+}
+
+// Инициализация Three.js при загрузке страницы
+document.addEventListener('DOMContentLoaded', initThree);
+
