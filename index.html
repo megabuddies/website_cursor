@@ -3,179 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Buddies - Лидирующая коллекция на MegaETH</title>
+    <title>Mega Buddies - Революция в мире NFT на MegaETH</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/neon.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/spline-runtime@0.9.371/build/spline-runtime.min.js"></script>
 </head>
 <body>
-    <div class="custom-cursor"></div>
     <div class="noise-overlay"></div>
     
-    <div class="toggle-container">
-        <button class="toggle-mode" aria-label="Toggle dark/light mode">
-            <span class="toggle-icon"></span>
-        </button>
-    </div>
-    
+    <!-- Хедер -->
     <header class="main-header">
         <div class="logo-container">
-            <img src="images/mega-buddies-logo.svg" alt="Mega Buddies Logo">
+            <img src="images/logo.png" alt="Mega Buddies Logo">
         </div>
+        
         <nav class="main-nav">
             <ul>
                 <li><a href="#about" class="nav-link">О проекте</a></li>
+                <li><a href="#manifesto" class="nav-link">Манифест</a></li>
                 <li><a href="#collection" class="nav-link">Коллекция</a></li>
                 <li><a href="#roadmap" class="nav-link">Дорожная карта</a></li>
                 <li><a href="#community" class="nav-link">Сообщество</a></li>
             </ul>
         </nav>
-        <div class="connect-wallet">
-            <button class="wallet-btn">Подключить кошелек</button>
-        </div>
+        
+        <button class="wallet-btn neon-button">Подключить кошелек</button>
+        
         <div class="mobile-menu-toggle">
             <span></span>
             <span></span>
             <span></span>
         </div>
     </header>
-
-    <section class="hero" id="hero">
+    
+    <!-- Главный экран -->
+    <section class="hero" id="home">
+        <div id="hero-animation" class="hero-animation"></div>
+        
         <div class="hero-content">
-            <h1 class="animated-heading">MEGA BUDDIES</h1>
-            <p class="hero-description">Первая лидирующая коллекция на блокчейне MegaETH</p>
+            <h1 class="animated-heading neon-text glitch-effect" data-text="MEGA BUDDIES">MEGA BUDDIES</h1>
+            <p class="hero-description terminal-text">Не просто NFT. Мы - движение бунтарей, возвращающих истинный дух криптовалют.</p>
             <div class="hero-cta">
-                <a href="#collection" class="primary-btn">Исследовать коллекцию</a>
-                <a href="https://x.com/mega_buddies" target="_blank" class="secondary-btn">Следить за обновлениями</a>
+                <a href="#collection" class="primary-btn neon-button">Присоединиться к революции</a>
+                <a href="https://x.com/mega_buddies" target="_blank" class="secondary-btn">Следить за нами</a>
             </div>
         </div>
-        <div class="hero-animation" id="hero-animation">
-            <!-- Spline 3D анимация будет здесь -->
-        </div>
+        
         <div class="scroll-indicator">
-            <span>Прокрутите вниз</span>
+            <span>Скролл вниз</span>
             <div class="scroll-arrow"></div>
         </div>
     </section>
-
-    <section class="about" id="about">
+    
+    <!-- О проекте -->
+    <section id="about" class="about">
         <div class="section-header">
-            <h2 class="section-heading">О Mega Buddies</h2>
-            <div class="section-line"></div>
+            <h2 class="section-heading neon-text">О проекте</h2>
+            <div class="section-line neon-border"></div>
         </div>
+        
         <div class="about-content">
             <div class="about-grid">
                 <div class="about-item" data-scroll>
                     <div class="about-icon neon-glow"></div>
-                    <h3>Уникальная коллекция</h3>
-                    <p>Каждый Mega Buddy обладает уникальными характеристиками и способностями, созданными с использованием передовых алгоритмов.</p>
+                    <h3>Бунт против системы</h3>
+                    <p>Мы устали от корпоративных правил и однотипных проектов. Mega Buddies - это движение против стандартов и возвращение к истокам криптовалют.</p>
                 </div>
                 <div class="about-item" data-scroll>
                     <div class="about-icon neon-glow"></div>
-                    <h3>Экосистема MegaETH</h3>
-                    <p>Mega Buddies интегрируются в экосистему MegaETH, предоставляя держателям эксклюзивные преимущества и возможности.</p>
+                    <h3>Возвращение к корням</h3>
+                    <p>Когда-то криптовалюты были домом для панков и бунтарей. Мы возвращаем этот дух и создаем пространство для тех, кто хочет MAKE CRYPTO GREAT AGAIN.</p>
                 </div>
                 <div class="about-item" data-scroll>
                     <div class="about-icon neon-glow"></div>
-                    <h3>Преимущества сообщества</h3>
-                    <p>Станьте частью растущего сообщества и получите доступ к эксклюзивным мероприятиям, дропам и будущим релизам.</p>
+                    <h3>Больше чем NFT</h3>
+                    <p>Наш проект - это не просто коллекция картинок, а философия и движение, которое стремится изменить индустрию и вернуть криптовалютам их истинное предназначение.</p>
                 </div>
-            </div>
-            <div class="about-3d" id="about-3d">
-                <!-- Дополнительная 3D анимация -->
             </div>
         </div>
-        <div class="parallax-element"></div>
     </section>
-
-    <section class="collection-preview" id="collection">
+    
+    <!-- Манифест -->
+    <section class="manifesto" id="manifesto">
         <div class="section-header">
-            <h2 class="section-heading">Познакомьтесь с Buddies</h2>
-            <div class="section-line"></div>
+            <h2 class="section-heading neon-text glitch-effect" data-text="Наш манифест">Наш манифест</h2>
+            <div class="section-line neon-border"></div>
         </div>
+        
+        <div class="terminal-container neon-border">
+            <div class="terminal-header">mega_buddies@megaeth:~$</div>
+            <div class="terminal-content">
+                <p class="terminal-text">Мы - группа бунтарей из Силиконовой долины, уставших от корпоративных правил и однотипных проектов.</p>
+                <p class="terminal-text">Когда-то криптовалюты были домом для панков и людей, несогласных с политикой. Биткоин создавался как валюта, неподконтрольная ни одному государству!</p>
+                <p class="terminal-text">Мы были счастливы присоединиться к этому движению, но затем нас захватила корпоративная судьба. Однако дух дегенства в нас никогда не угасал.</p>
+                <p class="terminal-text">Сейчас мы смотрим на происходящее в crypto с болью, понимая, что где-то свернули не туда. Современные VC не верят в идеалы криптовалют и играют эту игру в своих интересах.</p>
+                <p class="terminal-text">Mega Buddies - это не просто NFT проект, это философия, которая должна перевернуть игру. Мы отказываемся от традиционных способов продвижения и работы.</p>
+                <p class="terminal-text">Наша цель - сделать тихую революцию и вернуть криптовалютам их истинное предназначение. Мы хотим видеть крипто каждый день в нашей жизни: от оплаты ЖКХ до покупки автомобиля.</p>
+                <p class="terminal-text">Своими шагами мы докажем, что можно нарушать правила и быть успешными, заручаясь только поддержкой сообщества!</p>
+                <p class="terminal-text">MAKE CRYPTO GREAT AGAIN!</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Коллекция -->
+    <section id="collection" class="collection-preview">
+        <div class="section-header">
+            <h2 class="section-heading neon-text">Коллекция</h2>
+            <div class="section-line neon-border"></div>
+        </div>
+        
         <div class="collection-filters">
             <button class="filter-btn active" data-filter="all">Все</button>
-            <button class="filter-btn" data-filter="legendary">Легендарные</button>
-            <button class="filter-btn" data-filter="rare">Редкие</button>
             <button class="filter-btn" data-filter="common">Обычные</button>
+            <button class="filter-btn" data-filter="rare">Редкие</button>
+            <button class="filter-btn" data-filter="legendary">Легендарные</button>
         </div>
+        
         <div class="collection-carousel">
             <div class="nft-card" data-rarity="legendary">
-                <div class="nft-image neon-glow"></div>
+                <div class="nft-image neon-glow" style="background-image: url('images/nft1.png');"></div>
                 <div class="nft-info">
-                    <h3 class="nft-name">Cosmic Buddy</h3>
-                    <p class="nft-description">Хранитель галактических тайн</p>
+                    <h3 class="nft-name">Rebel Buddy</h3>
+                    <p class="nft-description">Символ бунта против системы</p>
                     <div class="nft-traits">
                         <span class="trait">Редкость: Легендарная</span>
-                        <span class="trait">Сила: 95</span>
+                        <span class="trait">Бунтарство: 100</span>
                     </div>
                 </div>
-                <div class="card-hover-effect"></div>
             </div>
+            
             <div class="nft-card" data-rarity="rare">
-                <div class="nft-image neon-glow"></div>
+                <div class="nft-image neon-glow" style="background-image: url('images/nft2.png');"></div>
                 <div class="nft-info">
-                    <h3 class="nft-name">Neon Buddy</h3>
-                    <p class="nft-description">Мастер цифровых измерений</p>
+                    <h3 class="nft-name">Crypto Punk</h3>
+                    <p class="nft-description">Возвращение к истокам криптовалют</p>
                     <div class="nft-traits">
                         <span class="trait">Редкость: Редкая</span>
-                        <span class="trait">Интеллект: 88</span>
+                        <span class="trait">Дегенство: 85</span>
                     </div>
                 </div>
-                <div class="card-hover-effect"></div>
             </div>
+            
             <div class="nft-card" data-rarity="common">
-                <div class="nft-image neon-glow"></div>
+                <div class="nft-image neon-glow" style="background-image: url('images/nft3.png');"></div>
                 <div class="nft-info">
-                    <h3 class="nft-name">Cyber Buddy</h3>
-                    <p class="nft-description">Исследователь виртуальных миров</p>
+                    <h3 class="nft-name">Hacker Buddy</h3>
+                    <p class="nft-description">Взламывает систему изнутри</p>
                     <div class="nft-traits">
                         <span class="trait">Редкость: Обычная</span>
-                        <span class="trait">Скорость: 75</span>
+                        <span class="trait">Хакерство: 75</span>
                     </div>
                 </div>
-                <div class="card-hover-effect"></div>
             </div>
+            
             <div class="nft-card" data-rarity="legendary">
-                <div class="nft-image neon-glow"></div>
+                <div class="nft-image neon-glow" style="background-image: url('images/nft4.png');"></div>
                 <div class="nft-info">
-                    <h3 class="nft-name">Quantum Buddy</h3>
-                    <p class="nft-description">Повелитель квантовых частиц</p>
+                    <h3 class="nft-name">Revolution Leader</h3>
+                    <p class="nft-description">Ведет движение к новой эре</p>
                     <div class="nft-traits">
                         <span class="trait">Редкость: Легендарная</span>
-                        <span class="trait">Энергия: 97</span>
+                        <span class="trait">Лидерство: 95</span>
                     </div>
                 </div>
-                <div class="card-hover-effect"></div>
+            </div>
+            
+            <div class="nft-card" data-rarity="rare">
+                <div class="nft-image neon-glow" style="background-image: url('images/nft5.png');"></div>
+                <div class="nft-info">
+                    <h3 class="nft-name">MegaETH Ally</h3>
+                    <p class="nft-description">Союзник в борьбе за свободу</p>
+                    <div class="nft-traits">
+                        <span class="trait">Редкость: Редкая</span>
+                        <span class="trait">Союзничество: 90</span>
+                    </div>
+                </div>
             </div>
         </div>
+        
         <div class="collection-cta">
-            <a href="#full-collection" class="primary-btn">Показать всю коллекцию</a>
-        </div>
-        <div class="collection-3d" id="collection-3d">
-            <!-- Интерактивная 3D модель коллекции -->
+            <a href="#" class="primary-btn neon-button">Исследовать полную коллекцию</a>
         </div>
     </section>
-
-    <section class="roadmap" id="roadmap">
+    
+    <!-- Дорожная карта -->
+    <section id="roadmap" class="roadmap">
         <div class="section-header">
-            <h2 class="section-heading">Дорожная карта</h2>
-            <div class="section-line"></div>
+            <h2 class="section-heading neon-text">Дорожная карта</h2>
+            <div class="section-line neon-border"></div>
         </div>
+        
         <div class="interactive-roadmap">
             <div class="roadmap-item active" data-phase="1">
-                <div class="roadmap-icon neon-glow"></div>
+                <div class="roadmap-icon neon-glow" data-phase="1"></div>
                 <div class="roadmap-content">
-                    <h3>Фаза 1: Запуск</h3>
-                    <p>Запуск основной коллекции Mega Buddies на блокчейне MegaETH</p>
+                    <h3>Фаза 1: Манифест</h3>
+                    <p>Запуск движения Mega Buddies и распространение нашей философии</p>
                     <ul class="roadmap-details">
-                        <li>Выпуск 10,000 уникальных Mega Buddies</li>
-                        <li>Интеграция с маркетплейсами</li>
-                        <li>Активация сообщества в Discord и Twitter</li>
+                        <li>Создание сообщества единомышленников</li>
+                        <li>Выпуск манифеста "Возвращение к истокам крипто"</li>
+                        <li>Запуск первой коллекции как символа движения</li>
                     </ul>
                     <div class="progress-bar">
                         <div class="progress" style="width: 100%"></div>
@@ -183,31 +214,33 @@
                     <span class="status completed">Завершено</span>
                 </div>
             </div>
+            
             <div class="roadmap-item" data-phase="2">
-                <div class="roadmap-icon neon-glow"></div>
+                <div class="roadmap-icon neon-glow" data-phase="2"></div>
                 <div class="roadmap-content">
-                    <h3>Фаза 2: Расширение</h3>
-                    <p>Расширение экосистемы и добавление новых функций</p>
+                    <h3>Фаза 2: Революция</h3>
+                    <p>Расширение движения и создание инструментов для реального использования криптовалют</p>
                     <ul class="roadmap-details">
-                        <li>Запуск токена $BUDDY</li>
-                        <li>Стейкинг NFT с вознаграждениями</li>
-                        <li>Эксклюзивные мероприятия для держателей</li>
+                        <li>Запуск образовательной платформы о криптовалютах</li>
+                        <li>Создание инструментов для повседневного использования MegaETH</li>
+                        <li>Партнерства с единомышленниками в экосистеме</li>
                     </ul>
                     <div class="progress-bar">
-                        <div class="progress" style="width: 65%"></div>
+                        <div class="progress" style="width: 60%"></div>
                     </div>
                     <span class="status in-progress">В процессе</span>
                 </div>
             </div>
+            
             <div class="roadmap-item" data-phase="3">
-                <div class="roadmap-icon neon-glow"></div>
+                <div class="roadmap-icon neon-glow" data-phase="3"></div>
                 <div class="roadmap-content">
-                    <h3>Фаза 3: Метавселенная</h3>
-                    <p>Создание виртуального мира для Mega Buddies</p>
+                    <h3>Фаза 3: Новая эра</h3>
+                    <p>Создание полноценной экосистемы для повседневного использования криптовалют</p>
                     <ul class="roadmap-details">
-                        <li>Запуск Mega Buddies Metaverse</li>
-                        <li>Виртуальные земельные участки</li>
-                        <li>Игровые механики P2E</li>
+                        <li>Запуск платежной системы для реальных транзакций</li>
+                        <li>Интеграция с существующими сервисами</li>
+                        <li>Масштабирование движения на глобальный уровень</li>
                     </ul>
                     <div class="progress-bar">
                         <div class="progress" style="width: 10%"></div>
@@ -216,29 +249,31 @@
                 </div>
             </div>
         </div>
-        <div class="roadmap-3d" id="roadmap-3d">
-            <!-- 3D визуализация дорожной карты -->
-        </div>
     </section>
-
-    <section class="community" id="community">
+    
+    <!-- Сообщество -->
+    <section id="community" class="community">
         <div class="section-header">
-            <h2 class="section-heading">Присоединяйтесь к сообществу</h2>
-            <div class="section-line"></div>
+            <h2 class="section-heading neon-text">Сообщество</h2>
+            <div class="section-line neon-border"></div>
         </div>
+        
         <div class="community-grid">
             <div class="twitter-feed">
-                <h3>Последние обновления</h3>
+                <h3>Следите за нами в Twitter</h3>
                 <div class="twitter-embed">
-                    <a class="twitter-timeline" data-height="500" href="https://x.com/mega_buddies">Твиты от Mega Buddies</a>
+                    <a class="twitter-timeline" data-height="400" href="https://x.com/mega_buddies">Tweets by Mega Buddies</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
             </div>
+            
             <div class="discord-community">
-                <h3>Discord сообщество</h3>
-                <p>Присоединяйтесь к более чем 10,000 участников сообщества Mega Buddies!</p>
+                <h3>Присоединяйтесь к нашему Discord</h3>
+                <p>Станьте частью революционного движения. В нашем Discord вы найдете единомышленников, готовых изменить мир криптовалют и вернуть ему истинное предназначение.</p>
+                
                 <div class="discord-stats">
                     <div class="stat-item">
-                        <span class="stat-value">10K+</span>
+                        <span class="stat-value">3,500+</span>
                         <span class="stat-label">Участников</span>
                     </div>
                     <div class="stat-item">
@@ -246,42 +281,46 @@
                         <span class="stat-label">Активность</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value">5+</span>
-                        <span class="stat-label">Ивентов в неделю</span>
+                        <span class="stat-value">100%</span>
+                        <span class="stat-label">Бунтарство</span>
                     </div>
                 </div>
-                <a href="#" class="discord-btn">Присоединиться к Discord</a>
+                
+                <a href="#" class="discord-btn neon-button">Присоединиться к Discord</a>
             </div>
         </div>
-        <div class="community-3d" id="community-3d">
-            <!-- 3D визуализация сообщества -->
-        </div>
     </section>
-
+    
+    <!-- Подписка на новости -->
     <section class="newsletter">
         <div class="section-header">
-            <h2 class="section-heading">Будьте в курсе</h2>
-            <div class="section-line"></div>
+            <h2 class="section-heading neon-text">Будьте в курсе</h2>
+            <div class="section-line neon-border"></div>
         </div>
+        
         <div class="newsletter-content">
-            <p>Подпишитесь на нашу рассылку, чтобы получать последние новости и обновления о Mega Buddies</p>
+            <p>Подпишитесь на нашу рассылку, чтобы первыми узнавать о новостях революции Mega Buddies и получать эксклюзивный доступ к предстоящим событиям.</p>
+            
             <form class="newsletter-form">
                 <input type="email" placeholder="Ваш email" required>
-                <button type="submit" class="primary-btn">Подписаться</button>
+                <button type="submit" class="primary-btn neon-button">Подписаться</button>
             </form>
         </div>
     </section>
-
+    
+    <!-- Футер -->
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="images/mega-buddies-logo.svg" alt="Mega Buddies Logo">
+                <img src="images/logo.png" alt="Mega Buddies Logo">
+                                <p>Возвращаем истинный дух криптовалют и создаем революцию в мире NFT на MegaETH.</p>
             </div>
             <div class="footer-links">
                 <div class="footer-column">
                     <h4>Навигация</h4>
                     <ul>
                         <li><a href="#about">О проекте</a></li>
+                        <li><a href="#manifesto">Манифест</a></li>
                         <li><a href="#collection">Коллекция</a></li>
                         <li><a href="#roadmap">Дорожная карта</a></li>
                         <li><a href="#community">Сообщество</a></li>
@@ -290,24 +329,23 @@
                 <div class="footer-column">
                     <h4>Социальные сети</h4>
                     <ul>
-                        <li><a href="https://x.com/mega_buddies">Twitter/X</a></li>
-                        <li><a href="#">Discord</a></li>
-                        <li><a href="#">Medium</a></li>
-                        <li><a href="#">OpenSea</a></li>
+                        <li><a href="https://x.com/mega_buddies" target="_blank">Twitter/X</a></li>
+                        <li><a href="#" target="_blank">Discord</a></li>
+                        <li><a href="#" target="_blank">MegaETH</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h4>Правовая информация</h4>
+                    <h4>Ресурсы</h4>
                     <ul>
-                        <li><a href="#">Условия использования</a></li>
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">Лицензия</a></li>
+                        <li><a href="#">Манифест (PDF)</a></li>
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Mega Buddies. Все права защищены.</p>
+            <p>&copy; 2025 Mega Buddies. Сделано бунтарями для бунтарей.</p>
         </div>
     </footer>
 
