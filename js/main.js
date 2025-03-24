@@ -1,63 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Инициализация GSAP ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
+    // Добавляем сканирующую линию для эффекта старого монитора
+    const scanLine = document.createElement('div');
+    scanLine.classList.add('scan-line');
+    document.body.appendChild(scanLine);
     
-    // Кастомный курсор
-    const cursor = document.querySelector('.custom-cursor');
-    
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-    
-    document.addEventListener('mousedown', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    });
-    
-    document.addEventListener('mouseup', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
-    
-    // Увеличение курсора при наведении на интерактивные элементы
-    const interactiveElements = document.querySelectorAll('a, button, .nft-card, .filter-btn');
-    
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.width = '50px';
-            cursor.style.height = '50px';
-            cursor.style.mixBlendMode = 'normal';
-            cursor.style.backgroundColor = 'rgba(66, 245, 197, 0.3)';
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.style.width = '20px';
-            cursor.style.height = '20px';
-            cursor.style.mixBlendMode = 'difference';
-            cursor.style.backgroundColor = 'var(--accent-color)';
-        });
-    });
-    
-    // Переключение темной/светлой темы
-    const toggleButton = document.querySelector('.toggle-mode');
-    
-    toggleButton.addEventListener('click', () => {
-        document.body.classList.toggle('light-mode');
-        
-        // Сохраняем предпочтение пользователя
-        if (document.body.classList.contains('light-mode')) {
-            localStorage.setItem('theme', 'light');
-        } else {
-            localStorage.setItem('theme', 'dark');
-        }
-    });
-    
-    // Проверяем сохраненную тему
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-    }
-    
-    // Анимация хедера при прокрутке
+    // Инициализация хедера
     const header = document.querySelector('.main-header');
     
     window.addEventListener('scroll', () => {
@@ -100,6 +47,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Эффект печатающегося текста для терминала
+    function typeWriter(element, text, speed = 50) {
+        let i = 0;
+        element.innerHTML = '';
+        
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        
+        type();
+    }
+    
+    // Применяем эффект печатающегося текста к элементам с классом terminal-text
+    document.querySelectorAll('.terminal-text').forEach(element => {
+        const originalText = element.textContent;
+        element.textContent = '';
+        
+        // Создаем наблюдатель для запуска анимации при появлении элемента в видимой области
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typeWriter(element, originalText);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(element);
+    });
+    
+    // Добавление случайных глюков к тексту
+    function addRandomGlitches() {
+        document.querySelectorAll('.glitch-text').forEach(element => {
+            if (Math.random() > 0.95) {
+                element.classList.add('active-glitch');
+                setTimeout(() => {
+                    element.classList.remove('active-glitch');
+                }, 200);
+            }
+        });
+        
+        requestAnimationFrame(addRandomGlitches);
+    }
+    
+    addRandomGlitches();
+    
     // Фильтрация NFT карточек
     const filterButtons = document.querySelectorAll('.filter-btn');
     const nftCards = document.querySelectorAll('.nft-card');
@@ -124,121 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Анимация элементов при прокрутке
-    const animateOnScroll = (elements, className) => {
-        elements.forEach(element => {
-            gsap.fromTo(element, 
-                { y: 50, opacity: 0 }, 
-                {
-                    y: 0, 
-                    opacity: 1, 
-                    duration: 0.8, 
-                    scrollTrigger: {
-                        trigger: element,
-                        start: "top 80%",
-                        toggleClass: {targets: element, className: className}
-                    }
-                }
-            );
-        });
-    };
-    
-    animateOnScroll(document.querySelectorAll('.about-item'), 'in-view');
-    animateOnScroll(document.querySelectorAll('.roadmap-item'), 'in-view');
-    animateOnScroll(document.querySelectorAll('.twitter-feed, .discord-community'), 'in-view');
-    
-    // Параллакс эффект для фоновых элементов
-    const parallaxElements = document.querySelectorAll('.parallax-element');
-    
-    window.addEventListener('mousemove', (e) => {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        
-        parallaxElements.forEach(element => {
-            element.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
-        });
-    });
-    
-    // Анимация для NFT карточек при наведении
-    nftCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-    
-    // Анимация для дорожной карты
-    const roadmapItems = document.querySelectorAll('.roadmap-item');
-    
-    roadmapItems.forEach((item, index) => {
-        const progress = item.querySelector('.progress');
-        
-        if (progress) {
-            gsap.fromTo(progress, 
-                { width: '0%' }, 
-                {
-                    width: progress.style.width,
-                    duration: 1.5,
-                    delay: index * 0.3,
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 80%"
-                    }
-                }
-            );
-        }
-    });
-    
-    // Анимация для заголовков секций
-    const sectionHeadings = document.querySelectorAll('.section-heading');
-    
-    sectionHeadings.forEach(heading => {
-        gsap.fromTo(heading,
-            { y: 30, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: heading,
-                    start: "top 80%"
-                }
-            }
-        );
-    });
-    
-    // Анимация для линий под заголовками
-    const sectionLines = document.querySelectorAll('.section-line');
-    
-    sectionLines.forEach(line => {
-        gsap.fromTo(line,
-            { width: 0, opacity: 0 },
-            {
-                width: 100,
-                opacity: 1,
-                duration: 1,
-                delay: 0.3,
-                scrollTrigger: {
-                    trigger: line,
-                    start: "top 80%"
-                }
-            }
-        );
-    });
-    
     // Форма подписки на рассылку
     const newsletterForm = document.querySelector('.newsletter-form');
     
@@ -250,9 +132,27 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (email) {
                 // Здесь будет код для отправки email на сервер
-                alert('Спасибо за подписку! Мы будем держать вас в курсе последних новостей.');
+                alert('Спасибо за подписку! Мы будем держать вас в курсе последних новостей о революции Mega Buddies.');
                 newsletterForm.reset();
             }
         });
     }
+    
+    // Добавляем "хакерский" эффект для кнопки подключения кошелька
+    const walletBtn = document.querySelector('.wallet-btn');
+    
+    walletBtn.addEventListener('click', function() {
+        this.textContent = "Подключение...";
+        this.classList.add('connecting');
+        
+        setTimeout(() => {
+            this.textContent = "Взлом системы...";
+        }, 1000);
+        
+        setTimeout(() => {
+            this.textContent = "Доступ получен";
+            this.classList.remove('connecting');
+            this.classList.add('connected');
+        }, 2000);
+    });
 });
