@@ -28,6 +28,31 @@ document.addEventListener('DOMContentLoaded', function() {
         duration: 0.8
     }, "-=0.2");
     
+    // Анимация для секции "Манифест"
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: "#manifesto",
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+        }
+    })
+    .from(".manifesto .section-heading", {
+        y: 50,
+        opacity: 0,
+        duration: 0.8
+    })
+    .from(".manifesto .section-line", {
+        width: 0,
+        opacity: 0,
+        duration: 0.5
+    }, "-=0.3")
+    .from(".terminal-container", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8
+    }, "-=0.2");
+    
     // Анимация для секции "Коллекция"
     gsap.timeline({
         scrollTrigger: {
@@ -146,72 +171,46 @@ document.addEventListener('DOMContentLoaded', function() {
         duration: 0.5
     }, "-=0.2");
     
-    // Параллакс эффект для фоновых элементов
-    gsap.utils.toArray('.parallax-element').forEach(element => {
-        gsap.to(element, {
-            y: -100,
-            scrollTrigger: {
-                trigger: element.parentElement,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-    });
+    // Эффект появления для терминальных текстов
+    const terminalTexts = document.querySelectorAll('.terminal-text');
     
-    // Анимация для 3D элементов в разных секциях
-    const initSection3D = (sectionId, canvasId) => {
-        const section = document.getElementById(sectionId);
-        const canvas = document.getElementById(canvasId);
-        
-        if (!section || !canvas) return;
-        
-        // Здесь будет код для инициализации 3D элементов с использованием Spline или Three.js
-        // Это заглушка, так как полная реализация требует дополнительных ресурсов
-        console.log(`Initializing 3D for section: ${sectionId}`);
-    };
-    
-    // Инициализация 3D элементов для разных секций
-    initSection3D('about', 'about-3d');
-    initSection3D('collection', 'collection-3d');
-    initSection3D('roadmap', 'roadmap-3d');
-    initSection3D('community', 'community-3d');
-    
-    // Анимация текста с эффектом печатной машинки
-    const typewriterElements = document.querySelectorAll('[data-typewriter]');
-    
-    typewriterElements.forEach(element => {
-        const text = element.textContent;
-        element.textContent = '';
+    terminalTexts.forEach((text, index) => {
+        const originalText = text.textContent;
+        text.textContent = '';
         
         ScrollTrigger.create({
-            trigger: element,
-            start: "top 80%",
+            trigger: text,
+            start: "top 90%",
             onEnter: () => {
                 let i = 0;
-                const interval = setInterval(() => {
-                    element.textContent += text[i];
-                    i++;
-                    if (i >= text.length) {
-                        clearInterval(interval);
+                const typeInterval = setInterval(() => {
+                    if (i < originalText.length) {
+                        text.textContent += originalText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
                     }
-                }, 50);
+                }, 20);
             },
             once: true
         });
     });
     
-    // Эффект появления для изображений
-    gsap.utils.toArray('.fade-in-image').forEach(img => {
-        gsap.from(img, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 1,
-            scrollTrigger: {
-                trigger: img,
-                start: "top 80%",
-                toggleActions: "play none none none"
+    // Добавление случайных глюков к элементам
+    function addRandomGlitches() {
+        const glitchElements = document.querySelectorAll('.glitch-effect');
+        
+        glitchElements.forEach(element => {
+            if (Math.random() > 0.95) {
+                element.classList.add('active-glitch');
+                setTimeout(() => {
+                    element.classList.remove('active-glitch');
+                }, 200);
             }
         });
-    });
+        
+        requestAnimationFrame(addRandomGlitches);
+    }
+    
+    addRandomGlitches();
 });
