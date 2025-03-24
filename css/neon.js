@@ -1,3 +1,16 @@
+.neon-glow {
+  box-shadow: 0 0 10px rgba(66, 245, 197, var(--glow-intensity)),
+              0 0 20px rgba(66, 245, 197, calc(var(--glow-intensity) * 0.5)),
+              0 0 30px rgba(66, 245, 197, calc(var(--glow-intensity) * 0.3)),
+              0 0 40px rgba(66, 245, 197, calc(var(--glow-intensity) * 0.1));
+}
+
+.neon-text {
+  text-shadow: 0 0 10px rgba(66, 245, 197, var(--glow-intensity)),
+               0 0 20px rgba(66, 245, 197, calc(var(--glow-intensity) * 0.5)),
+               0 0 30px rgba(66, 245, 197, calc(var(--glow-intensity) * 0.3));
+}
+
 .neon-border {
   border-color: var(--accent-color);
   box-shadow: 0 0 10px rgba(66, 245, 197, var(--glow-intensity)),
