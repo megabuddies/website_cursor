@@ -510,9 +510,11 @@ body {
 }
 
 .nft-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
   gap: 25px;
+  padding: 10px 0;
 }
 
 .nft-card {
@@ -526,6 +528,8 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
   position: relative;
   z-index: 1;
+  min-width: 250px;
+  flex: 0 0 auto;
 }
 
 .nft-card:hover {
@@ -578,6 +582,19 @@ body {
   left: 30px;
   width: 2px;
   background-color: var(--accent-color);
+}
+
+.roadmap-timeline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .roadmap-item {
@@ -901,13 +918,27 @@ body {
   position: relative;
 }
 
-.fullscreen-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+/* Стили для автоматической прокрутки в разделе КОЛЛЕКЦИЯ */
+.nft-grid {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  gap: 25px;
+  padding: 10px 0;
+}
+
+/* Красивое завершение линии в разделе ДОРОЖНАЯ КАРТА */
+.roadmap-timeline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 /* Медиа-запросы для адаптивности */
