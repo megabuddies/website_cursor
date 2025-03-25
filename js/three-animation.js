@@ -5,50 +5,63 @@ let mouseX = 0, mouseY = 0;
 let clock = new THREE.Clock();
 
 function initThree() {
-    try {
-        // Создаем сцену
-        scene = new THREE.Scene();
-        
-        // Настраиваем камеру
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
-        
-        // Настраиваем рендерер с эффектом пост-обработки
-        renderer = new THREE.WebGLRenderer({ 
-            alpha: true, 
-            antialias: true 
-        });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        document.getElementById('hero-animation').appendChild(renderer.domElement);
-        
-        // Добавляем освещение
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-        
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(10, 10, 10);
-        scene.add(directionalLight);
-        
-        // Создаем пиксельного Buddy
-        createPixelBuddy();
-        
-        // Создаем систему частиц в стиле MegaETH
-        createParticleSystem();
-        
-        // Отслеживание движения мыши для интерактивности
-        document.addEventListener('mousemove', onDocumentMouseMove);
-        
-        // Обработка изменения размера окна
-        window.addEventListener('resize', onWindowResize);
-        
-        // Запускаем анимацию
-        animate();
-    } catch (error) {
-        console.error("Ошибка инициализации Three.js:", error);
-        // Создаем запасной вариант анимации
+    // Предварительная загрузка ресурсов
+    const loadingManager = new THREE.LoadingManager();
+    loadingManager.onLoad = function() {
+        try {
+            // Создаем сцену
+            scene = new THREE.Scene();
+            
+            // Настраиваем камеру
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            
+            // Настраиваем рендерер с эффектом пост-обработки
+            renderer = new THREE.WebGLRenderer({ 
+                alpha: true, 
+                antialias: true,
+                powerPreference: "high-performance"
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            document.getElementById('hero-animation').appendChild(renderer.domElement);
+            
+            // Добавляем освещение
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(10, 10, 10);
+            scene.add(directionalLight);
+            
+            // Создаем пиксельного Buddy
+            createPixelBuddy();
+            
+            // Создаем систему частиц в стиле MegaETH
+            createParticleSystem();
+            
+            // Отслеживание движения мыши для интерактивности
+            document.addEventListener('mousemove', onDocumentMouseMove);
+            
+            // Обработка изменения размера окна
+            window.addEventListener('resize', onWindowResize);
+            
+            // Запускаем анимацию
+            animate();
+        } catch (error) {
+            console.error("Ошибка инициализации Three.js:", error);
+            createFallbackAnimation();
+        }
+    };
+    
+    loadingManager.onError = function(url) {
+        console.error("Ошибка загрузки ресурса:", url);
         createFallbackAnimation();
-    }
+    };
+    
+    // Загружаем необходимые ресурсы
+    loadingManager.itemStart();
+    loadingManager.itemEnd();
 }
 
 function createPixelBuddy() {

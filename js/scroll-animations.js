@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#about",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from("#about .section-heading", {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#manifesto",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from("#manifesto .section-heading", {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#collection",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from("#collection .section-heading", {
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#roadmap",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from("#roadmap .section-heading", {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#community",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from("#community .section-heading", {
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: ".newsletter",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from(".newsletter .section-heading", {
