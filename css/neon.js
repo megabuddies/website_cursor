@@ -112,10 +112,6 @@
 .glitch-effect::before {
   left: 2px;
   text-shadow: -1px 0 var(--secondary-color);
-  clip: rect(24px, 550px, 90
-  .glitch-effect::before {
-  left: 2px;
-  text-shadow: -1px 0 var(--secondary-color);
   clip: rect(24px, 550px, 90px, 0);
   animation: glitch-anim-1 2s infinite linear alternate-reverse;
 }
@@ -161,5 +157,3 @@
   0% { top: 0; }
   100% { top: 100%; }
 }
-
-  
