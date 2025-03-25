@@ -1,199 +1,120 @@
 :root {
-  --primary-color: #00ff41; /* Хакерский зеленый как у MegaETH */
-  --secondary-color: #ff3e9a; /* Яркий акцент для контраста */
-  --background-color: #0c0c0c; /* Темный фон как у MegaETH */
-  --background-light: #141414; /* Темно-серый для карточек */
-  --text-color: #e0e0e0; /* Светло-серый для текста */
-  --accent-color: #00ff41; /* Зеленый акцент */
-  --card-bg: rgba(20, 20, 20, 0.8);
-  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --border-radius: 4px; /* Более угловатый дизайн как у MegaETH */
-  --glow-intensity: 1;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-@font-face {
-  font-family: 'Terminal';
-  src: url('../fonts/VT323-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+  --background-color: #0c0c0c;
+  --text-color: #e0e0e0;
+  --accent-color: #00ff41;
+  --secondary-color: #ff3e9a;
+  --terminal-bg: #121212;
+  --glow-intensity: 0.8;
+  --font-mono: 'VT323', 'Courier New', monospace;
+  --font-display: 'Press Start 2P', monospace;
 }
 
 body {
-  font-family: 'Courier New', monospace; /* Терминальный шрифт */
   background-color: var(--background-color);
   color: var(--text-color);
-  overflow-x: hidden;
-  position: relative;
+  font-family: var(--font-mono);
   line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-image: 
+    linear-gradient(0deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(12, 12, 12, 0.97), rgba(12, 12, 12, 0.97)), 
-              url('../images/noise.png');
-  pointer-events: none;
-  z-index: -1;
+/* Глобальные стили */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
-.noise-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../images/noise.png');
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 9998;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  font-family: 'Terminal', 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 4rem;
+.section {
+  padding: 80px 0;
   position: relative;
 }
 
 .section-heading {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
+  font-family: var(--font-display);
+  font-size: 2rem;
   color: var(--accent-color);
+  margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  position: relative;
-  display: inline-block;
 }
 
 .section-line {
   width: 100px;
-  height: 2px;
-  background: var(--accent-color);
-  margin: 0 auto;
-  position: relative;
+  height: 3px;
+  background-color: var(--accent-color);
+  margin-bottom: 30px;
 }
 
-.primary-btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: var(--background-light);
-  color: var(--accent-color);
-  border: 1px solid var(--accent-color);
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  cursor: pointer;
-  text-decoration: none;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  font-family: 'Terminal', 'Courier New', monospace;
-  letter-spacing: 1px;
-}
-
-.primary-btn:hover {
-  background: var(--accent-color);
-  color: var(--background-color);
-}
-
-.secondary-btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--text-color);
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  cursor: pointer;
-  text-decoration: none;
-  transition: var(--transition);
-  margin-left: 1rem;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  font-family: 'Terminal', 'Courier New', monospace;
-  letter-spacing: 1px;
-}
-
-.secondary-btn:hover {
-  background: var(--text-color);
-  color: var(--background-color);
-}
-
-section {
-  padding: 6rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Header Styles */
+/* Хедер в стиле MegaETH */
 .main-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   z-index: 1000;
-  transition: var(--transition);
-  background: rgba(12, 12, 12, 0.9);
+  padding: 15px 0;
+  transition: all 0.3s ease;
+  background: rgba(12, 12, 12, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 255, 65, 0.2);
 }
 
 .header-scrolled {
-  padding: 1rem 3rem;
   background: rgba(12, 12, 12, 0.95);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-.logo-container img {
-  height: 30px;
-  transition: var(--transition);
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.main-nav ul {
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.main-nav {
+  display: flex;
+}
+
+.nav-list {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin: 0 15px;
 }
 
 .nav-link {
+  font-family: var(--font-mono);
   color: var(--text-color);
   text-decoration: none;
-  font-weight: 500;
+  font-size: 1rem;
+  padding: 5px 0;
   position: relative;
-  padding: 0.5rem 0;
-  transition: var(--transition);
-  font-family: 'Terminal', 'Courier New', monospace;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
 
 .nav-link::after {
@@ -202,9 +123,9 @@ section {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 1px;
-  background: var(--accent-color);
-  transition: var(--transition);
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
 }
 
 .nav-link:hover {
@@ -216,25 +137,49 @@ section {
 }
 
 .wallet-btn {
-  background: var(--background-light);
+  background-color: transparent;
   color: var(--accent-color);
-  border: 1px solid var(--accent-color);
-  border-radius: var(--border-radius);
-  padding: 0.5rem 1rem;
-  font-weight: 600;
+  border: 2px solid var(--accent-color);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: var(--transition);
-  font-family: 'Terminal', 'Courier New', monospace;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.wallet-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.4), transparent);
+  transition: 0.5s;
 }
 
 .wallet-btn:hover {
-  background: var(--accent-color);
-  color: var(--background-color);
+  background-color: rgba(0, 255, 65, 0.1);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
+.wallet-btn:hover::before {
+  left: 100%;
+}
+
+.wallet-btn.connecting {
+  background-color: rgba(0, 255, 65, 0.2);
+  animation: glitch 0.3s infinite alternate;
+}
+
+.wallet-btn.connected {
+  background-color: rgba(0, 255, 65, 0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.7);
+}
+
+/* Мобильное меню */
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
@@ -247,636 +192,450 @@ section {
 .mobile-menu-toggle span {
   display: block;
   width: 100%;
-  height: 2px;
+  height: 3px;
   background-color: var(--accent-color);
-  border-radius: 1px;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
-/* Hero Section */
+/* Герой секция в стиле MegaETH */
 .hero {
   height: 100vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: 0;
-  padding-bottom: 0;
-  background: var(--background-color);
 }
 
-.hero-content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  z-index: 2;
-  position: relative;
-}
-
-.animated-heading {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1s forwards 0.5s;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  position: relative;
-  display: inline-block;
-  color: var(--accent-color);
-}
-
-.animated-heading::before {
-  content: 'MEGA BUDDIES';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  color: var(--accent-color);
-  filter: blur(4px);
-  opacity: 0.5;
-  animation: glitch 5s infinite alternate;
-}
-
-@keyframes glitch {
-  0%, 100% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(2px, -2px); }
-  60% { transform: translate(-2px, -2px); }
-  80% { transform: translate(2px, 2px); }
-}
-
-.hero-description {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s forwards 0.8s;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: 'Courier New', monospace;
-}
-
-.hero-cta {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards 1.1s;
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-animation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--text-color);
-  opacity: 0.7;
-  transition: var(--transition);
-  animation: fadeIn 2s forwards 1.5s, bounce 2s infinite 1.5s;
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 0.7;
-  }
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  40% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-  60% {
-    transform: translateX(-50%) translateY(-5px);
-  }
-}
-
-.scroll-indicator span {
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-family: 'Terminal', 'Courier New', monospace;
-}
-
-.scroll-arrow {
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid var(--accent-color);
-  border-bottom: 2px solid var(--accent-color);
-  transform: rotate(45deg);
-}
-
-/* About Section */
-.about-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  width: 100%;
-}
-
-.about-item {
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  transition: var(--transition);
-  position: relative;
-  z-index: 1;
-  border: 1px solid var(--accent-color);
-  transform: translateY(50px);
-  opacity: 0;
-  transition: transform 0.8s ease, opacity 0.8s ease;
-}
-
-.about-item.in-view {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.about-item:hover {
-  transform: translateY(-10px);
-  border-color: var(--accent-color);
-}
-
-.about-icon {
-  width: 50px;
-  height: 50px;
-  border: 1px solid var(--accent-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.about-item h3 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: var(--accent-color);
-}
-
-.about-item p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-/* Collection Section */
-.collection-filters {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.filter-btn {
-  padding: 0.5rem 1rem;
-  background: var(--background-light);
-  border: 1px solid var(--accent-color);
-  border-radius: var(--border-radius);
-  color: var(--text-color);
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 500;
-  font-family: 'Terminal', 'Courier New', monospace;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-}
-
-.filter-btn.active, .filter-btn:hover {
-  background: var(--accent-color);
-  color: var(--background-color);
-}
-
-.collection-carousel {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.collection-carousel::-webkit-scrollbar {
-  display: none;
-}
-
-.nft-card {
-  flex: 0 0 300px;
-  height: 400px;
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  scroll-snap-align: start;
-  transition: var(--transition);
-  cursor: pointer;
-  position: relative;
-  border: 1px solid var(--accent-color);
-}
-
-.nft-card:hover {
-  transform: translateY(-10px);
-}
-
-.nft-image {
-  height: 60%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid var(--accent-color);
-}
-
-.nft-info {
-  padding: 1.5rem;
-  position: relative;
-  z-index: 2;
-}
-
-.nft-name {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--accent-color);
-}
-
-.nft-description {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  opacity: 0.8;
-}
-
-.nft-traits {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.trait {
-  font-size: 0.7rem;
-  padding: 0.25rem 0.75rem;
-  background: rgba(0, 255, 65, 0.1);
-  border: 1px solid var(--accent-color);
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-}
-
-.collection-cta {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-/* Roadmap Section */
-.interactive-roadmap {
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
-  padding: 2rem 0;
-}
-
-.interactive-roadmap::before {
+.hero::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 50px;
-  width: 1px;
+  left: 0;
+  width: 100%;
   height: 100%;
-  background: var(--accent-color);
+  background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-primary {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  border: none;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.7);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(0, 255, 65, 0.1);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.btn-secondary:hover::before {
+  left: 100%;
+}
+
+#hero-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
+}
+
+/* Секция "О проекте" в стиле MegaETH */
+.about-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.about-item {
+  background-color: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  padding: 25px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background-color: var(--accent-color);
+  transition: height 0.3s ease;
+}
+
+.about-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent-color);
+}
+
+.about-item:hover::before {
+  height: 100%;
+}
+
+.about-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--accent-color);
+}
+
+/* Секция "Манифест" в стиле MegaETH */
+.terminal-container {
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--accent-color);
+  border-radius: 5px;
+  padding: 20px;
+  font-family: var(--font-mono);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+  padding-bottom: 10px;
+}
+
+.terminal-title {
+  color: var(--accent-color);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-button.red {
+  background-color: #ff5f56;
+}
+
+.terminal-button.yellow {
+  background-color: #ffbd2e;
+}
+
+.terminal-button.green {
+  background-color: #27c93f;
+}
+
+.terminal-content {
+  line-height: 1.6;
+}
+
+.terminal-text {
+  margin: 0;
+  color: var(--text-color);
+  position: relative;
+}
+
+.terminal-prompt {
+  color: var(--accent-color);
+  margin-right: 10px;
+}
+
+/* Секция "Коллекция" в стиле MegaETH */
+.collection-filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-btn {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background-color: rgba(0, 255, 65, 0.1);
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.nft-card {
+  background-color: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nft-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent-color);
+}
+
+.nft-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.nft-info {
+  padding: 15px;
+}
+
+.nft-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin: 0 0 10px;
+  color: var(--accent-color);
+}
+
+.nft-rarity {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  margin: 0 0 10px;
+}
+
+.nft-price {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin: 0;
+}
+
+/* Секция "Дорожная карта" в стиле MegaETH */
+.roadmap-container {
+  position: relative;
+  padding: 20px 0;
+}
+
+.roadmap-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background-color: var(--accent-color);
+  transform: translateX(-50%);
+}
+
+.roadmap-items {
+  position: relative;
 }
 
 .roadmap-item {
   display: flex;
-  align-items: flex-start;
-  margin-bottom: 4rem;
-  transition: var(--transition);
+  margin-bottom: 50px;
   position: relative;
-  transform: translateY(50px);
-  opacity: 0;
 }
 
-.roadmap-item.in-view {
-  transform: translateY(0);
-  opacity: 1;
+.roadmap-item:nth-child(odd) {
+  justify-content: flex-end;
 }
 
-.roadmap-item:last-child {
-  margin-bottom: 0;
+.roadmap-item:nth-child(odd) .roadmap-content {
+  text-align: right;
+  padding-right: 30px;
 }
 
-.roadmap-icon {
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--accent-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  margin-right: 2rem;
-  position: relative;
-  flex-shrink: 0;
-  background: var(--background-color);
-  margin-left: 35px;
+.roadmap-item:nth-child(even) .roadmap-content {
+  text-align: left;
+  padding-left: 30px;
 }
 
-.roadmap-icon::before {
-  content: attr(data-phase);
-  color: var(--accent-color);
-  font-size: 1rem;
-  font-weight: 700;
+.roadmap-dot {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
 }
 
 .roadmap-content {
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  flex: 1;
-  position: relative
-    border: 1px solid rgba(0, 255, 65, 0.2);
+  width: 45%;
+  background-color: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 5px;
+  padding: 20px;
+  transition: all 0.3s ease;
 }
 
-.roadmap-item:hover .roadmap-content {
-  transform: translateY(-5px);
+.roadmap-content:hover {
   border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
 }
 
-.roadmap-content h3 {
+.roadmap-date {
+  font-family: var(--font-display);
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
   color: var(--accent-color);
+  margin-bottom: 10px;
 }
 
-.roadmap-content p {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-.roadmap-details {
-  list-style: none;
-  margin-bottom: 1.5rem;
-}
-
-.roadmap-details li {
-  margin-bottom: 0.5rem;
-  position: relative;
-  padding-left: 1.5rem;
-  font-family: 'Courier New', monospace;
-  font-size: 0.85rem;
-}
-
-.roadmap-details li::before {
-  content: '>';
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: var(--accent-color);
-  font-family: 'Terminal', 'Courier New', monospace;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-
-.progress {
-  height: 100%;
-  background: var(--accent-color);
-  border-radius: 2px;
-  transition: width 1s ease;
-}
-
-.status {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--border-radius);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-family: 'Terminal', 'Courier New', monospace;
-  letter-spacing: 1px;
-}
-
-.status.completed {
-  background-color: rgba(0, 255, 65, 0.1);
-  color: var(--accent-color);
-  border: 1px solid var(--accent-color);
-}
-
-.status.in-progress {
-  background-color: rgba(255, 62, 154, 0.1);
-  color: var(--secondary-color);
-  border: 1px solid var(--secondary-color);
-}
-
-.status.planned {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-color);
-  border: 1px solid var(--text-color);
-}
-
-/* Manifesto Section */
-.manifesto {
-  background: var(--background-color);
-  position: relative;
-}
-
-.terminal-container {
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 1px solid var(--accent-color);
-  padding: 30px;
-  font-family: 'Courier New', monospace;
-  color: var(--accent-color);
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  border-radius: var(--border-radius);
-}
-
-.terminal-header {
-  position: absolute;
-  top: -15px;
-  left: 20px;
-  background-color: var(--background-color);
-  padding: 0 10px;
-  font-size: 14px;
-  color: var(--accent-color);
-  font-family: 'Terminal', 'Courier New', monospace;
-}
-
-.terminal-content {
-  line-height: 1.8;
-}
-
-.terminal-text {
-  margin-bottom: 15px;
-  position: relative;
-  padding-left: 20px;
-  font-size: 0.9rem;
-}
-
-.terminal-text::before {
-  content: '>';
-  position: absolute;
-  left: 0;
-  color: var(--accent-color);
-}
-
-/* Community Section */
-.community-grid {
+/* Секция "Сообщество" в стиле MegaETH */
+.community-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
 }
 
 .twitter-feed, .discord-community {
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  border: 1px solid var(--accent-color);
-  transition: var(--transition);
-  transform: translateY(50px);
-  opacity: 0;
-}
-
-.twitter-feed.in-view, .discord-community.in-view {
-  transform: translateY(0);
-  opacity: 1;
+  background-color: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 5px;
+  padding: 20px;
+  transition: all 0.3s ease;
 }
 
 .twitter-feed:hover, .discord-community:hover {
-  transform: translateY(-10px);
   border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
 }
 
-.twitter-feed h3, .discord-community h3 {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
+.community-heading {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
   color: var(--accent-color);
-  font-family: 'Terminal', 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  margin-bottom: 15px;
 }
 
-.twitter-embed {
-  height: 400px;
-  overflow: hidden;
-  border-radius: var(--border-radius);
-  border: 1px solid rgba(0, 255, 65, 0.2);
-}
-
-.discord-community p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.discord-stats {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 1.8rem;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 0.5rem;
+.social-icon {
+  font-size: 2rem;
   color: var(--accent-color);
-  font-family: 'Terminal', 'Courier New', monospace;
+  margin-right: 10px;
 }
 
-.stat-label {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.discord-btn {
+.join-discord {
   display: inline-block;
-  width: 100%;
-  padding: 1rem;
-  background: var(--background-light);
-  color: var(--accent-color);
-  border: 1px solid var(--accent-color);
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  text-align: center;
+  background-color: #5865F2;
+  color: white;
+  padding: 10px 20px;
   text-decoration: none;
-  transition: var(--transition);
-  font-family: 'Terminal', 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  border-radius: 5px;
+    margin-top: 15px;
+  transition: all 0.3s ease;
 }
 
-.discord-btn:hover {
-  background: var(--accent-color);
-  color: var(--background-color);
+.join-discord:hover {
+  background-color: #4752c4;
 }
 
-/* Newsletter Section */
+/* Секция "Подписка" в стиле MegaETH */
 .newsletter {
-  background: var(--background-light);
-  padding: 4rem 0;
+  background-color: rgba(18, 18, 18, 0.7);
+  padding: 60px 0;
   position: relative;
-  overflow: hidden;
-}
-
-.newsletter::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(12, 12, 12, 0.97), rgba(12, 12, 12, 0.97)), 
-              url('../images/noise.png');
-  pointer-events: none;
-  z-index: -1;
 }
 
 .newsletter-content {
@@ -885,262 +644,267 @@ section {
   text-align: center;
 }
 
-.newsletter-content p {
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-}
-
 .newsletter-form {
   display: flex;
-  gap: 1rem;
-  max-width: 500px;
-  margin: 0 auto;
+  margin-top: 30px;
 }
 
 .newsletter-form input {
   flex: 1;
-  padding: 0.75rem 1rem;
+  padding: 12px 15px;
+  background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--accent-color);
-  border-radius: var(--border-radius);
-  background: rgba(0, 0, 0, 0.3);
   color: var(--text-color);
+  font-family: var(--font-mono);
   font-size: 0.9rem;
-  transition: var(--transition);
-  font-family: 'Courier New', monospace;
 }
 
 .newsletter-form input:focus {
   outline: none;
-  border-color: var(--accent-color);
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
 }
 
-/* Footer Styles */
+.newsletter-form button {
+  padding: 12px 20px;
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  background-color: rgba(0, 255, 65, 0.8);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+/* Футер в стиле MegaETH */
 .main-footer {
-  background: var(--background-color);
-  padding: 4rem 0 2rem;
-  position: relative;
-  overflow: hidden;
+  background-color: var(--background-color);
+  padding: 60px 0 30px;
   border-top: 1px solid rgba(0, 255, 65, 0.2);
 }
 
-.footer-content {
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 3rem;
-  margin-bottom: 3rem;
+  padding: 0 15px;
+}
+
+.footer-logo {
+  margin-bottom: 30px;
 }
 
 .footer-logo img {
-  height: 30px;
-  margin-bottom: 1.5rem;
+  height: 40px;
+  margin-bottom: 15px;
 }
 
-.footer-links {
+.footer-description {
+  max-width: 300px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.social-links {
   display: flex;
-  gap: 3rem;
+  gap: 15px;
 }
 
-.footer-column h4 {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
+.social-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--accent-color);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background-color: var(--accent-color);
+}
+
+.social-link i {
+  color: var(--text-color);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover i {
+  color: var(--background-color);
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-nav-section {
+  min-width: 150px;
+}
+
+.footer-nav-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
   color: var(--accent-color);
-  font-family: 'Terminal', 'Courier New', monospace;
+  margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
-.footer-column ul {
+.footer-nav-links {
   list-style: none;
+  padding: 0;
 }
 
-.footer-column ul li {
-  margin-bottom: 0.75rem;
+.footer-nav-link {
+  margin-bottom: 10px;
 }
 
-.footer-column ul li a {
+.footer-nav-link a {
   color: var(--text-color);
   text-decoration: none;
-  transition: var(--transition);
-  opacity: 0.8;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
-.footer-column ul li a:hover {
+.footer-nav-link a:hover {
   color: var(--accent-color);
-  opacity: 1;
 }
 
 .footer-bottom {
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 30px;
+  margin-top: 30px;
   border-top: 1px solid rgba(0, 255, 65, 0.1);
-}
-
-.footer-bottom p {
-  opacity: 0.7;
   font-size: 0.8rem;
+  color: rgba(224, 224, 224, 0.7);
 }
 
-/* Glitch Effect */
-.glitch-text {
-  position: relative;
-  display: inline-block;
-}
-
-.glitch-text.active-glitch {
-  animation: textGlitch 0.3s linear;
-}
-
-@keyframes textGlitch {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-  }
-  40% {
-    transform: translate(-2px, -2px);
-  }
-  60% {
-    transform: translate(2px, 2px);
-  }
-  80% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(0);
-  }
-}
-
-/* Responsive Styles */
+/* Медиа-запросы для адаптивности */
 @media (max-width: 1200px) {
-  .about-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .container {
+    width: 95%;
   }
 }
 
 @media (max-width: 992px) {
-  .section-heading {
-    font-size: 2rem;
+  .about-content {
+    grid-template-columns: repeat(2, 1fr);
   }
   
-  .animated-heading {
-    font-size: 3rem;
-  }
-  
-  .hero-description {
-    font-size: 1rem;
-  }
-  
-  .community-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .newsletter-form {
-    flex-direction: column;
-  }
-  
-  .footer-content {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .footer-links {
-    flex-direction: column;
-    gap: 2rem;
+  .roadmap-content {
+    width: 60%;
   }
 }
 
 @media (max-width: 768px) {
   .main-header {
-    padding: 1rem 1.5rem;
+    padding: 15px;
   }
   
-  .main-nav {
+  .nav-list {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 70px;
     left: 0;
     width: 100%;
-    background: var(--background-color);
-    border-top: 1px solid var(--accent-color);
-    padding: 1rem 0;
-    z-index: 100;
-  }
-  
-  .main-nav.active {
-    display: block;
-  }
-  
-  .main-nav ul {
+    background-color: var(--background-color);
     flex-direction: column;
-    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid var(--accent-color);
+    border-bottom: 1px solid var(--accent-color);
   }
   
-  .main-nav ul li {
-    margin: 0.5rem 0;
+  .nav-list.active {
+    display: flex;
+  }
+  
+  .nav-item {
+    margin: 10px 0;
   }
   
   .mobile-menu-toggle {
     display: flex;
   }
   
-  .mobile-menu-toggle.active span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-  }
-  
-  .mobile-menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .mobile-menu-toggle.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-  }
-  
-  .section-heading {
-    font-size: 1.8rem;
-  }
-  
-  .animated-heading {
+  .hero-title {
     font-size: 2.5rem;
   }
   
-  .about-grid {
+  .about-content {
     grid-template-columns: 1fr;
   }
   
   .roadmap-item {
     flex-direction: column;
+    align-items: center;
+  }
+  
+  .roadmap-item:nth-child(odd) {
+    justify-content: center;
+  }
+  
+  .roadmap-item:nth-child(odd) .roadmap-content {
     text-align: center;
+    padding-right: 0;
   }
   
-  .roadmap-icon {
-    margin-right: 0;
-    margin-bottom: 1.5rem;
+  .roadmap-item:nth-child(even) .roadmap-content {
+    text-align: center;
+    padding-left: 0;
   }
   
-  .interactive-roadmap::before {
-    left: 50%;
-    height: calc(100% - 160px);
-    top: 80px;
+  .roadmap-content {
+    width: 80%;
+    margin-top: 20px;
+  }
+  
+  .roadmap-dot {
+    position: static;
+    transform: none;
+    margin-bottom: 20px;
+  }
+  
+  .roadmap-line {
+    display: none;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .newsletter-form input {
+    margin-bottom: 10px;
+  }
+  
+  .footer-container {
+    flex-direction: column;
+  }
+  
+  .footer-nav {
+    margin-top: 30px;
+    gap: 20px;
   }
 }
 
 @media (max-width: 576px) {
-  .hero-cta {
-    display: flex;
+  .hero-buttons {
     flex-direction: column;
-    gap: 1rem;
+    gap: 10px;
   }
   
-  .secondary-btn {
-    margin-left: 0;
+  .section-heading {
+    font-size: 1.8rem;
   }
 }
 
