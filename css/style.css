@@ -486,63 +486,63 @@ body {
 .collection-filters {
   display: flex;
   justify-content: center;
+  gap: 15px;
   margin-bottom: 30px;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 .filter-btn {
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid rgba(0, 255, 65, 0.3);
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
   padding: 8px 16px;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .filter-btn.active, .filter-btn:hover {
   background-color: rgba(0, 255, 65, 0.1);
-  color: var(--accent-color);
-  border-color: var(--accent-color);
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .nft-grid {
   display: flex;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+  overflow-x: auto;
   gap: 25px;
-  padding: 10px 0;
+  padding: 20px 0;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.nft-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
 
 .nft-card {
-  background: rgba(12, 12, 12, 0.8);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 30px;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: relative;
-  z-index: 1;
-  min-width: 250px;
   flex: 0 0 auto;
+  width: 300px;
+  background: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nft-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  border-color: var(--accent-color);
+  box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
 }
 
 .nft-image {
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
-  display: block;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.2);
 }
 
 .nft-info {
@@ -551,19 +551,19 @@ body {
 
 .nft-name {
   font-family: var(--font-display);
-  font-size: 1.2rem;
-  margin: 0 0 10px;
+  font-size: 1rem;
   color: var(--accent-color);
+  margin: 0 0 10px 0;
 }
 
 .nft-rarity {
   font-size: 0.9rem;
   color: var(--secondary-color);
-  margin: 0 0 10px;
+  margin: 0 0 5px 0;
 }
 
 .nft-price {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--text-color);
   margin: 0;
 }
@@ -916,29 +916,6 @@ body {
   background-size: 20px 20px;
   background-position: center;
   position: relative;
-}
-
-/* Стили для автоматической прокрутки в разделе КОЛЛЕКЦИЯ */
-.nft-grid {
-  display: flex;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  gap: 25px;
-  padding: 10px 0;
-}
-
-/* Красивое завершение линии в разделе ДОРОЖНАЯ КАРТА */
-.roadmap-timeline::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 20px;
-  background-color: var(--accent-color);
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 /* Медиа-запросы для адаптивности */

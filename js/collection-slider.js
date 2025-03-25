@@ -3,8 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Функция для загрузки изображений для каждой категории
     function loadImagesForCategory(category) {
+        // Скрываем все grid-контейнеры
+        document.querySelectorAll('.nft-grid').forEach(grid => {
+            grid.style.display = 'none';
+        });
+        
+        // Показываем только активный grid-контейнер
         const container = document.querySelector(`.nft-grid[data-category="${category}"]`);
         if (!container) return;
+        
+        container.style.display = 'flex';
         
         // Очищаем контейнер перед добавлением новых изображений
         container.innerHTML = '';
@@ -84,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Настраиваем автоматическую прокрутку
         let scrollPosition = 0;
-        const scrollSpeed = 1; // Скорость прокрутки
+        const scrollSpeed = 3; // Увеличиваем скорость прокрутки
         
         setInterval(() => {
             scrollPosition += scrollSpeed;
@@ -93,10 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (scrollPosition >= (cards[0].offsetWidth + 25) * cards.length) {
                 scrollPosition = 0;
                 container.scrollLeft = 0;
-            } else {
-                container.scrollLeft = scrollPosition;
             }
-        }, 30);
+            
+            container.scrollLeft = scrollPosition;
+        }, 16); // Уменьшаем интервал для более плавной прокрутки
     }
     
     // Загружаем изображения для активной категории при загрузке страницы
