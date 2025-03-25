@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     gsap.registerPlugin(ScrollTrigger);
     
     // Устанавливаем начальные состояния для всех секций
-    gsap.set('#manifesto', { opacity: 1, visibility: 'visible' });
-    gsap.set('#collection', { opacity: 1, visibility: 'visible' });
-    gsap.set('#roadmap', { opacity: 1, visibility: 'visible' });
+    gsap.set(['#manifesto', '#collection', '#roadmap'], {
+        opacity: 1,
+        visibility: 'visible',
+        display: 'block'
+    });
     
     // Анимация для секции "О проекте"
     gsap.timeline({
@@ -46,20 +48,23 @@ document.addEventListener('DOMContentLoaded', function() {
         opacity: 0,
         y: 50,
         duration: 1,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     })
     .from('#manifesto .terminal-content', {
         opacity: 0,
         y: 30,
         duration: 1,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     }, '-=0.5')
     .from('#manifesto .terminal-line', {
         opacity: 0,
         y: 20,
         duration: 0.8,
         stagger: 0.1,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     }, '-=0.3');
     
     // Анимация для секции коллекции
@@ -76,21 +81,24 @@ document.addEventListener('DOMContentLoaded', function() {
         y: 50,
         duration: 1,
         stagger: 0.2,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     })
     .from('#collection .nft-card .nft-image', {
         opacity: 0,
         scale: 0.8,
         duration: 1,
         stagger: 0.2,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     }, '-=0.5')
     .from('#collection .nft-card .nft-info', {
         opacity: 0,
         y: 20,
         duration: 0.8,
         stagger: 0.2,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     }, '-=0.3');
     
     // Анимация для секции дорожной карты
@@ -107,21 +115,24 @@ document.addEventListener('DOMContentLoaded', function() {
         x: -50,
         duration: 1,
         stagger: 0.3,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     })
     .from('#roadmap .roadmap-content', {
         opacity: 0,
         y: 30,
         duration: 1,
         stagger: 0.3,
-        ease: 'power2.out'
+        ease: 'power2.out',
+        clearProps: 'all'
     }, '-=0.5')
     .from('#roadmap .roadmap-item .roadmap-icon', {
         opacity: 0,
         scale: 0,
         duration: 0.8,
         stagger: 0.3,
-        ease: 'back.out(1.7)'
+        ease: 'back.out(1.7)',
+        clearProps: 'all'
     }, '-=0.3');
     
     // Анимация для секции "Сообщество"
