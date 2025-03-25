@@ -130,42 +130,20 @@
                 <button class="filter-btn" data-filter="legendary">ЛЕГЕНДАРНЫЕ</button>
             </div>
             
-            <div class="nft-grid">
-                <div class="nft-card" data-rarity="legendary">
-                    <img src="images/nft1.jpg" alt="Mega Buddy #1" class="nft-image">
-                    <div class="nft-info">
-                        <h3 class="nft-name">REBEL BUDDY</h3>
-                        <p class="nft-rarity">Легендарный</p>
-                        <p class="nft-price">0.5 ETH</p>
-                    </div>
-                </div>
-                
-                <div class="nft-card" data-rarity="rare">
-                    <img src="images/nft2.jpg" alt="Mega Buddy #2" class="nft-image">
-                    <div class="nft-info">
-                        <h3 class="nft-name">CRYPTO PUNK</h3>
-                        <p class="nft-rarity">Редкий</p>
-                        <p class="nft-price">0.3 ETH</p>
-                    </div>
-                </div>
-                
-                <div class="nft-card" data-rarity="common">
-                    <img src="images/nft3.jpg" alt="Mega Buddy #3" class="nft-image">
-                    <div class="nft-info">
-                        <h3 class="nft-name">HACKER BUDDY</h3>
-                        <p class="nft-rarity">Обычный</p>
-                        <p class="nft-price">0.1 ETH</p>
-                    </div>
-                </div>
-                
-                <div class="nft-card" data-rarity="legendary">
-                    <img src="images/nft4.jpg" alt="Mega Buddy #4" class="nft-image">
-                    <div class="nft-info">
-                        <h3 class="nft-name">REVOLUTION LEADER</h3>
-                        <p class="nft-rarity">Легендарный</p>
-                        <p class="nft-price">0.8 ETH</p>
-                    </div>
-                </div>
+            <div class="nft-grid" data-category="all">
+                <!-- NFT карточки будут добавлены динамически -->
+            </div>
+            
+            <div class="nft-grid" data-category="common" style="display: none;">
+                <!-- NFT карточки будут добавлены динамически -->
+            </div>
+            
+            <div class="nft-grid" data-category="rare" style="display: none;">
+                <!-- NFT карточки будут добавлены динамически -->
+            </div>
+            
+            <div class="nft-grid" data-category="legendary" style="display: none;">
+                <!-- NFT карточки будут добавлены динамически -->
             </div>
         </div>
     </section>
@@ -325,9 +303,9 @@
         </div>
     </footer>
     
-    <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
     <script src="js/three-animation.js"></script>
-    <script src="js/scroll-animations.js"></script>
+    <script src="js/collection-slider.js"></script>
 </body>
 </html>
 
