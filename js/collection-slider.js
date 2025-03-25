@@ -83,28 +83,68 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Функция для настройки автоматической прокрутки
     function setupAutoScroll(container) {
+        // Очищаем предыдущие обработчики событий
+        container.removeEventListener('mouseenter', pauseScroll);
+        container.removeEventListener('mouseleave', resumeScroll);
+        
         // Клонируем элементы для бесконечной прокрутки
         const cards = container.querySelectorAll('.nft-card');
-        cards.forEach(card => {
-            const clone = card.cloneNode(true);
-            container.appendChild(clone);
+        const originalCards = Array.from(cards);
+        
+        // Очищаем контейнер
+        container.innerHTML = '';
+        
+        // Добавляем оригинальные карточки
+        originalCards.forEach(card => {
+            container.appendChild(card.cloneNode(true));
         });
         
-        // Настраиваем автоматическую прокрутку
-        let scrollPosition = 0;
-        const scrollSpeed = 3; // Увеличиваем скорость прокрутки
+        // Добавляем клоны для бесконечной прокрутки
+        originalCards.forEach(card => {
+            container.appendChild(card.cloneNode(true));
+        });
         
-        setInterval(() => {
+        let scrollPosition = 0;
+        let scrollSpeed = 2; // Уменьшаем скорость для более плавной прокрутки
+        let isScrolling = true;
+        let animationFrameId = null;
+        
+        // Функция для паузы прокрутки
+        function pauseScroll() {
+            isScrolling = false;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        }
+        
+        // Функция для возобновления прокрутки
+        function resumeScroll() {
+            isScrolling = true;
+            animate();
+        }
+        
+        // Функция анимации
+        function animate() {
+            if (!isScrolling) return;
+            
             scrollPosition += scrollSpeed;
             
-            // Если дошли до конца, перемещаемся в начало
+            // Если дошли до конца, плавно перемещаемся в начало
             if (scrollPosition >= (cards[0].offsetWidth + 25) * cards.length) {
                 scrollPosition = 0;
                 container.scrollLeft = 0;
             }
             
             container.scrollLeft = scrollPosition;
-        }, 16); // Уменьшаем интервал для более плавной прокрутки
+            animationFrameId = requestAnimationFrame(animate);
+        }
+        
+        // Добавляем обработчики событий для паузы при наведении
+        container.addEventListener('mouseenter', pauseScroll);
+        container.addEventListener('mouseleave', resumeScroll);
+        
+        // Запускаем анимацию
+        animate();
     }
     
     // Загружаем изображения для активной категории при загрузке страницы
@@ -120,8 +160,27 @@ document.addEventListener('DOMContentLoaded', function() {
             // Добавляем класс active текущей кнопке
             this.classList.add('active');
             
-            // Загружаем изображения для выбранной категории
+            // Добавляем плавное появление для выбранной категории
             const category = this.getAttribute('data-filter');
+            const targetGrid = document.querySelector(`.nft-grid[data-category="${category}"]`);
+            
+            // Скрываем все grid-контейнеры с анимацией
+            document.querySelectorAll('.nft-grid').forEach(grid => {
+                grid.style.opacity = '0';
+                setTimeout(() => {
+                    grid.style.display = 'none';
+                }, 300);
+            });
+            
+            // Показываем выбранную категорию с анимацией
+            setTimeout(() => {
+                targetGrid.style.display = 'flex';
+                setTimeout(() => {
+                    targetGrid.style.opacity = '1';
+                }, 50);
+            }, 300);
+            
+            // Загружаем изображения для выбранной категории
             loadImagesForCategory(category);
         });
     });

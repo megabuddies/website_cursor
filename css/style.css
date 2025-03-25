@@ -510,27 +510,23 @@ body {
 
 .nft-grid {
   display: flex;
-  overflow-x: auto;
   gap: 25px;
+  overflow-x: hidden;
   padding: 20px 0;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-}
-
-.nft-grid::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  transition: opacity 0.3s ease;
+  opacity: 1;
 }
 
 .nft-card {
   flex: 0 0 auto;
-  width: 300px;
+  width: 250px;
   background: rgba(18, 18, 18, 0.8);
   border: 1px solid rgba(0, 255, 65, 0.2);
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .nft-card:hover {
