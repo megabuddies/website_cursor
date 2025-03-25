@@ -17,11 +17,6 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-image: 
-    linear-gradient(0deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: center;
 }
 
 /* Глобальные стили */
@@ -32,8 +27,17 @@ body {
   padding: 0 15px;
 }
 
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
 .section {
-  padding: 80px 0;
+  padding: 50px 0;
   position: relative;
   opacity: 1;
   visibility: visible;
@@ -225,6 +229,29 @@ body {
   max-width: 600px;
 }
 
+.glitch-container {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.hero-badge {
+  position: absolute;
+  top: -15px;
+  right: -30px;
+  background: var(--secondary-color);
+  color: var(--background-color);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  transform: rotate(15deg);
+  animation: badgePulse 2s infinite alternate;
+}
+
+@keyframes badgePulse {
+  from { box-shadow: 0 0 5px rgba(255, 62, 154, 0.7); }
+  to { box-shadow: 0 0 15px rgba(255, 62, 154, 1); }
+}
+
 .hero-title {
   font-family: var(--font-display);
   font-size: 3rem;
@@ -258,6 +285,7 @@ body {
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .btn-primary::before {
@@ -292,6 +320,7 @@ body {
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .btn-secondary::before {
@@ -373,6 +402,17 @@ body {
 }
 
 /* Секция "Манифест" в стиле MegaETH */
+#manifesto::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--background-color));
+  z-index: 2;
+}
+
 .terminal-container {
   background: var(--terminal-bg);
   border-radius: 10px;
@@ -527,78 +567,48 @@ body {
 /* Секция "Дорожная карта" в стиле MegaETH */
 .roadmap-container {
   position: relative;
-  padding: 20px 0;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.roadmap-line {
+.roadmap-timeline {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
+  left: 30px;
   width: 2px;
   background-color: var(--accent-color);
-  transform: translateX(-50%);
-}
-
-.roadmap-items {
-  position: relative;
 }
 
 .roadmap-item {
+  display: flex;
+  margin-bottom: 40px;
   position: relative;
-  margin-bottom: 50px;
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 1;
 }
 
-.roadmap-item:nth-child(odd) {
-  justify-content: flex-end;
-}
-
-.roadmap-item:nth-child(odd) .roadmap-content {
-  text-align: right;
-  padding-right: 30px;
-}
-
-.roadmap-item:nth-child(even) .roadmap-content {
-  text-align: left;
-  padding-left: 30px;
-}
-
-.roadmap-dot {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  background-color: var(--accent-color);
+.roadmap-icon {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
+  background: var(--terminal-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  border: 2px solid var(--accent-color);
+  z-index: 2;
+}
+
+.roadmap-icon i {
+  font-size: 24px;
+  color: var(--accent-color);
 }
 
 .roadmap-content {
-  background: rgba(12, 12, 12, 0.8);
-  padding: 30px;
+  flex: 1;
+  padding: 20px;
   border-radius: 10px;
-  position: relative;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 1;
-  width: 45%;
-  background-color: rgba(18, 18, 18, 0.7);
-  border: 1px solid rgba(0, 255, 65, 0.2);
-}
-
-.roadmap-content:hover {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+  background: rgba(18, 18, 18, 0.7);
 }
 
 .roadmap-date {
@@ -608,7 +618,29 @@ body {
   margin-bottom: 10px;
 }
 
-/* Секция "Сообщество" в стиле MegaETH */
+.roadmap-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.roadmap-status.completed {
+  background-color: rgba(0, 255, 65, 0.2);
+  color: var(--accent-color);
+}
+
+.roadmap-status.in-progress {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.roadmap-status.planned {
+  background-color: rgba(255, 62, 154, 0.2);
+  color: var(--secondary-color);
+}
+
 .community-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -643,19 +675,41 @@ body {
   margin-right: 10px;
 }
 
-.join-discord {
+/* Унифицированный стиль для кнопок сообщества */
+.community-btn {
   display: inline-block;
-  background-color: #5865F2;
-  color: white;
+  background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+  color: var(--background-color);
+  font-family: var(--font-mono);
   padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-    margin-top: 15px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  margin-top: 15px;
 }
 
-.join-discord:hover {
-  background-color: #4752c4;
+.community-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.community-btn:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.7);
+}
+
+.community-btn:hover::before {
+  left: 100%;
 }
 
 /* Секция "Подписка" в стиле MegaETH */
@@ -663,6 +717,18 @@ body {
   background-color: rgba(18, 18, 18, 0.7);
   padding: 60px 0;
   position: relative;
+  text-align: center;
+}
+
+.newsletter .section-heading {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter .section-line {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .newsletter-content {
@@ -674,6 +740,7 @@ body {
 .newsletter-form {
   display: flex;
   margin-top: 30px;
+  justify-content: center;
 }
 
 .newsletter-form input {
@@ -817,6 +884,32 @@ body {
   color: rgba(224, 224, 224, 0.7);
 }
 
+/* Фон для всей страницы */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-image: 
+    linear-gradient(0deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center;
+  position: relative;
+}
+
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
 /* Медиа-запросы для адаптивности */
 @media (max-width: 1200px) {
   .container {
@@ -829,8 +922,8 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .roadmap-content {
-    width: 60%;
+  .roadmap-container {
+    padding: 0 20px;
   }
 }
 
@@ -873,37 +966,7 @@ body {
   }
   
   .roadmap-item {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .roadmap-item:nth-child(odd) {
-    justify-content: center;
-  }
-  
-  .roadmap-item:nth-child(odd) .roadmap-content {
-    text-align: center;
-    padding-right: 0;
-  }
-  
-  .roadmap-item:nth-child(even) .roadmap-content {
-    text-align: center;
-    padding-left: 0;
-  }
-  
-  .roadmap-content {
-    width: 80%;
-    margin-top: 20px;
-  }
-  
-  .roadmap-dot {
-    position: static;
-    transform: none;
-    margin-bottom: 20px;
-  }
-  
-  .roadmap-line {
-    display: none;
+    margin-bottom: 40px;
   }
   
   .newsletter-form {
@@ -933,134 +996,4 @@ body {
   .section-heading {
     font-size: 1.8rem;
   }
-}
-
-/* Стили для секций */
-#manifesto,
-#collection,
-#roadmap {
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: relative;
-    z-index: 1;
-    display: block !important;
-}
-
-.terminal-container {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-.nft-card {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-.roadmap-item {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateX(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-.roadmap-content {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-/* Стили для коллекции */
-#collection {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.nft-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 20px;
-    margin-top: 50px;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.nft-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* Стили для дорожной карты */
-#roadmap {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.roadmap-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.roadmap-item {
-    margin-bottom: 50px;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* Стили для манифеста */
-#manifesto {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.terminal-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-    opacity: 1 !important;
-    visibility: visible !important;
 }
