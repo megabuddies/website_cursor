@@ -10,18 +10,29 @@
 }
 
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: var(--font-mono);
-  line-height: 1.6;
+  background: #000;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-image: 
-    linear-gradient(0deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: center;
+  position: relative;
+}
+
+/* Фоновый эффект для всей страницы */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, rgba(0,0,0,0.8) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(0,0,0,0.8) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -2;
+  opacity: 0.3;
 }
 
 /* Глобальные стили */
@@ -33,10 +44,9 @@ body {
 }
 
 .section {
-  padding: 80px 0;
   position: relative;
-  opacity: 1;
-  visibility: visible;
+  padding: 80px 0;
+  overflow: hidden;
 }
 
 .section-heading {
@@ -199,45 +209,43 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Герой секция в стиле MegaETH */
-.hero {
-  height: 100vh;
+/* Стили для стартовой страницы */
+#hero {
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
   position: relative;
   overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
-  z-index: 1;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .hero-title {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  margin-bottom: 20px;
-  color: var(--accent-color);
+  font-size: 4.5rem;
+  margin-bottom: 30px;
   text-transform: uppercase;
-  line-height: 1.2;
+  letter-spacing: 5px;
+  background: linear-gradient(45deg, #00ffff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
 .hero-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  color: var(--text-color);
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .hero-buttons {
@@ -325,386 +333,209 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* Секция "О проекте" в стиле MegaETH */
-.about-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+/* Уменьшаем отступ между секциями */
+#manifesto {
+  padding-bottom: 40px;
 }
 
-.about-item {
-  background: rgba(12, 12, 12, 0.8);
-  padding: 30px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  position: relative;
-  overflow: hidden;
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.3s ease;
+#collection {
+  padding-top: 40px;
 }
 
-.about-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
-}
-
-.about-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2);
-}
-
-.about-item:hover::before {
-  transform: translateX(100%);
-}
-
-.about-item h3 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: var(--accent-color);
-}
-
-/* Секция "Манифест" в стиле MegaETH */
-.terminal-container {
-  background: var(--terminal-bg);
-  border-radius: 10px;
-  padding: 30px;
-  margin-top: 30px;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+/* Стили для секций */
+#manifesto,
+#collection,
+#roadmap {
+  opacity: 1 !important;
+  visibility: visible !important;
   position: relative;
   z-index: 1;
-  font-family: var(--font-mono);
-  overflow: hidden;
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+  display: block !important;
 }
 
-.terminal-header {
+.terminal-container {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: block !important;
+}
+
+.nft-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: block !important;
+}
+
+.roadmap-item {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: block !important;
+}
+
+.roadmap-content {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: block !important;
+}
+
+/* Стили для коллекции */
+#collection {
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 15px;
-  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
-  padding-bottom: 10px;
-}
-
-.terminal-title {
-  color: var(--accent-color);
-  font-size: 1rem;
-  margin: 0;
-}
-
-.terminal-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.terminal-button {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.terminal-button.red {
-  background-color: #ff5f56;
-}
-
-.terminal-button.yellow {
-  background-color: #ffbd2e;
-}
-
-.terminal-button.green {
-  background-color: #27c93f;
-}
-
-.terminal-content {
-  line-height: 1.6;
-}
-
-.terminal-text {
-  margin: 0;
-  color: var(--text-color);
-  position: relative;
-}
-
-.terminal-prompt {
-  color: var(--accent-color);
-  margin-right: 10px;
-}
-
-/* Секция "Коллекция" в стиле MegaETH */
-.collection-filters {
-  display: flex;
   justify-content: center;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.filter-btn {
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid rgba(0, 255, 65, 0.3);
-  padding: 8px 16px;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.filter-btn.active, .filter-btn:hover {
-  background-color: rgba(0, 255, 65, 0.1);
-  color: var(--accent-color);
-  border-color: var(--accent-color);
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  padding: 100px 0;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  position: relative;
+  overflow: hidden;
 }
 
 .nft-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin-top: 50px;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .nft-card {
-  background: rgba(12, 12, 12, 0.8);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
   overflow: hidden;
-  margin-bottom: 30px;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: relative;
-  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
-.nft-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  border-color: var(--accent-color);
+/* Стили для дорожной карты */
+#roadmap {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
 }
 
-.nft-image {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  display: block;
-}
-
-.nft-info {
-  padding: 15px;
-}
-
-.nft-name {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  margin: 0 0 10px;
-  color: var(--accent-color);
-}
-
-.nft-rarity {
-  font-size: 0.9rem;
-  color: var(--secondary-color);
-  margin: 0 0 10px;
-}
-
-.nft-price {
-  font-size: 1rem;
-  color: var(--text-color);
-  margin: 0;
-}
-
-/* Секция "Дорожная карта" в стиле MegaETH */
 .roadmap-container {
-  position: relative;
-  padding: 20px 0;
-}
-
-.roadmap-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 2px;
-  background-color: var(--accent-color);
-  transform: translateX(-50%);
-}
-
-.roadmap-items {
-  position: relative;
-}
-
-.roadmap-item {
-  position: relative;
-  margin-bottom: 50px;
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 1;
-}
-
-.roadmap-item:nth-child(odd) {
-  justify-content: flex-end;
-}
-
-.roadmap-item:nth-child(odd) .roadmap-content {
-  text-align: right;
-  padding-right: 30px;
-}
-
-.roadmap-item:nth-child(even) .roadmap-content {
-  text-align: left;
-  padding-left: 30px;
-}
-
-.roadmap-dot {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  background-color: var(--accent-color);
-  border-radius: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
-}
-
-.roadmap-content {
-  background: rgba(12, 12, 12, 0.8);
-  padding: 30px;
-  border-radius: 10px;
-  position: relative;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 1;
-  width: 45%;
-  background-color: rgba(18, 18, 18, 0.7);
-  border: 1px solid rgba(0, 255, 65, 0.2);
-}
-
-.roadmap-content:hover {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
-}
-
-.roadmap-date {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: var(--accent-color);
-  margin-bottom: 10px;
-}
-
-/* Секция "Сообщество" в стиле MegaETH */
-.community-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 }
 
-.twitter-feed, .discord-community {
-  background: rgba(12, 12, 12, 0.8);
+.roadmap-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
   padding: 30px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.twitter-feed:hover, .discord-community:hover {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+.roadmap-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
 }
 
-.community-heading {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--accent-color);
-  margin-bottom: 15px;
-}
-
-.social-icon {
-  font-size: 2rem;
-  color: var(--accent-color);
-  margin-right: 10px;
-}
-
-.join-discord {
-  display: inline-block;
-  background-color: #5865F2;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-    margin-top: 15px;
-  transition: all 0.3s ease;
-}
-
-.join-discord:hover {
-  background-color: #4752c4;
-}
-
-/* Секция "Подписка" в стиле MegaETH */
-.newsletter {
-  background-color: rgba(18, 18, 18, 0.7);
-  padding: 60px 0;
-  position: relative;
-}
-
-.newsletter-content {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.newsletter-form {
+/* Стили для манифеста */
+#manifesto {
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Стили для секций */
+section {
+  position: relative;
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+/* Стили для кнопок в разделе сообщества */
+.community-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
   margin-top: 30px;
 }
 
-.newsletter-form input {
-  flex: 1;
-  padding: 12px 15px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--accent-color);
-  color: var(--text-color);
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-}
-
-.newsletter-form input:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
-}
-
-.newsletter-form button {
-  padding: 12px 20px;
-  background-color: var(--accent-color);
-  color: var(--background-color);
+.community-btn {
+  padding: 15px 40px;
+  font-size: 1.1rem;
   border: none;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
+  border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(45deg, #00ffff, #ff00ff);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
-.newsletter-form button:hover {
-  background-color: rgba(0, 255, 65, 0.8);
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+.community-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+/* Стили для заголовка "Будь в курсе" */
+.newsletter-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #00ffff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.newsletter-description {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #fff;
+}
+
+/* Анимация свечения */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5),
+                  0 0 20px rgba(0, 255, 255, 0.3),
+                  0 0 30px rgba(0, 255, 255, 0.2);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8),
+                  0 0 30px rgba(0, 255, 255, 0.5),
+                  0 0 40px rgba(0, 255, 255, 0.3);
+  }
 }
 
 /* Футер в стиле MegaETH */
@@ -933,604 +764,5 @@ body {
   .section-heading {
     font-size: 1.8rem;
   }
-}
-
-/* Стили для секций */
-#manifesto,
-#collection,
-#roadmap {
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: relative;
-    z-index: 1;
-    display: block !important;
-}
-
-.terminal-container {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-.nft-card {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-.roadmap-item {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateX(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-.roadmap-content {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: block !important;
-}
-
-/* Стили для коллекции */
-#collection {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.nft-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 20px;
-    margin-top: 50px;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.nft-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* Стили для дорожной карты */
-#roadmap {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.roadmap-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.roadmap-item {
-    margin-bottom: 50px;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* Стили для манифеста */
-#manifesto {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.terminal-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* Общие стили для всех секций */
-section {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    overflow: hidden;
-}
-
-/* Стили для стартовой страницы */
-#hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    overflow: hidden;
-    padding: 0;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 800px;
-    padding: 0 20px;
-}
-
-.hero-title {
-    font-size: 4.5rem;
-    font-weight: 800;
-    margin-bottom: 30px;
-    background: linear-gradient(45deg, #00ffff, #ff00ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-    animation: glow 2s ease-in-out infinite alternate;
-}
-
-.hero-subtitle {
-    font-size: 1.5rem;
-    color: #ffffff;
-    margin-bottom: 40px;
-    opacity: 0.9;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.hero-button {
-    padding: 15px 40px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-}
-
-.primary-button {
-    background: linear-gradient(45deg, #00ffff, #ff00ff);
-    color: #000000;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-}
-
-.secondary-button {
-    background: transparent;
-    color: #ffffff;
-    border: 2px solid #00ffff;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-}
-
-.hero-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
-}
-
-/* Стили для сетки и звезд */
-.grid-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Стили для секций */
-#manifesto,
-#collection,
-#roadmap,
-#community {
-    position: relative;
-    z-index: 2;
-    background: transparent;
-}
-
-/* Стили для коллекции */
-#collection {
-    padding: 50px 0;
-}
-
-.nft-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 20px;
-    margin-top: 30px;
-}
-
-/* Стили для дорожной карты */
-#roadmap {
-    padding: 50px 0;
-}
-
-.roadmap-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.roadmap-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    transition: transform 0.3s ease;
-}
-
-.roadmap-item:hover {
-    transform: translateY(-5px);
-}
-
-/* Стили для сообщества */
-#community {
-    padding: 50px 0;
-}
-
-.community-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.community-button {
-    padding: 15px 40px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-    background: linear-gradient(45deg, #00ffff, #ff00ff);
-    color: #000000;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-}
-
-.community-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
-}
-
-/* Стили для заголовка "Будь в курсе" */
-.newsletter-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, #00ffff, #ff00ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-}
-
-.newsletter-description {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 30px;
-    color: #ffffff;
-    opacity: 0.9;
-}
-
-/* Анимация свечения */
-@keyframes glow {
-    from {
-        text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-    }
-    to {
-        text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
-    }
-}
-
-/* General styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #0a0a0a;
-    color: #ffffff;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-/* Grid overlay */
-.grid-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Stars animation */
-#stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Sections */
-section {
-    position: relative;
-    min-height: 100vh;
-    padding: 100px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-
-/* Hero section */
-#hero {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-}
-
-.hero-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero-title {
-    font-size: 4rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    background: linear-gradient(45deg, #ff00ff, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glow 2s ease-in-out infinite alternate;
-}
-
-.hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 40px;
-    color: #cccccc;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-}
-
-.hero-button {
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.primary-button {
-    background: linear-gradient(45deg, #ff00ff, #00ffff);
-    color: white;
-}
-
-.secondary-button {
-    background: transparent;
-    border: 2px solid #ff00ff;
-    color: #ff00ff;
-}
-
-/* Manifest section */
-#manifesto {
-    background: rgba(10, 10, 10, 0.8);
-}
-
-.terminal-container {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid #00ffff;
-    border-radius: 10px;
-    padding: 30px;
-    max-width: 800px;
-    width: 100%;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-}
-
-.terminal-line {
-    color: #00ffff;
-    margin-bottom: 10px;
-    font-family: 'Courier New', monospace;
-}
-
-/* Collection section */
-#collection {
-    background: rgba(10, 10, 10, 0.8);
-}
-
-.section-heading {
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    text-align: center;
-    color: #ffffff;
-}
-
-.nft-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0 20px;
-}
-
-/* Roadmap section */
-#roadmap {
-    background: rgba(10, 10, 10, 0.8);
-}
-
-.roadmap-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0 20px;
-}
-
-.roadmap-item {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #ff00ff;
-    border-radius: 10px;
-    padding: 30px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.roadmap-item:hover {
-    transform: translateY(-10px);
-}
-
-.roadmap-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-/* Community section */
-#community {
-    background: rgba(10, 10, 10, 0.8);
-}
-
-.newsletter-container {
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-    padding: 0 20px;
-}
-
-.newsletter-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #ffffff;
-}
-
-.newsletter-description {
-    margin-bottom: 30px;
-    color: #cccccc;
-}
-
-.community-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-}
-
-.community-button {
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: linear-gradient(45deg, #ff00ff, #00ffff);
-    color: white;
-}
-
-/* Animations */
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-    }
-    to {
-        text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff;
-    }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 3rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .section-heading {
-        font-size: 2rem;
-    }
-    
-    .roadmap-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .hero-buttons,
-    .community-buttons {
-        flex-direction: column;
-    }
 }
 
