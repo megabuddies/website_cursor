@@ -14,7 +14,7 @@ function initThree() {
             
             // Настраиваем камеру
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 5;
+            camera.position.z = 2;
             
             // Настраиваем рендерер с эффектом пост-обработки
             renderer = new THREE.WebGLRenderer({ 
@@ -24,7 +24,7 @@ function initThree() {
             });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            document.getElementById('hero-animation').appendChild(renderer.domElement);
+            document.getElementById('hero').appendChild(renderer.domElement);
             
             // Добавляем освещение
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -93,52 +93,31 @@ function createPixelBuddy() {
 
 function createParticleSystem() {
     // Создаем систему частиц в стиле MegaETH
-    const particleCount = 1000;
-    const particles = new THREE.BufferGeometry();
+    const particlesCount = 1000;
+    const posArray = new Float32Array(particlesCount * 3);
     
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const sizes = new Float32Array(particleCount);
-    
-    const color1 = new THREE.Color(0x00ff41); // Зеленый
-    const color2 = new THREE.Color(0xff3e9a); // Розовый
-    
-    for (let i = 0; i < particleCount; i++) {
-        // Позиции
-        positions[i * 3] = (Math.random() - 0.5) * 30;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
-        
-        // Цвета
-        const colorChoice = Math.random();
-        let color = colorChoice < 0.7 ? color1 : color2;
-        
-        colors[i * 3] = color.r;
-        colors[i * 3 + 1] = color.g;
-        colors[i * 3 + 2] = color.b;
-        
-        // Размеры
-        sizes[i] = Math.random() * 0.15 + 0.05;
+    for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 5;
     }
     
-    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    const particlesGeometry = new THREE.BufferGeometry();
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     
-    const particleMaterial = new THREE.PointsMaterial({
-        size: 0.1,
-        vertexColors: true,
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.005,
+        color: '#ff00ff',
         transparent: true,
-        opacity: 0.8
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
     });
     
-    particleSystem = new THREE.Points(particles, particleMaterial);
+    particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particleSystem);
 }
 
 function createFallbackAnimation() {
     // Создаем простую анимацию без WebGL
-    const heroSection = document.getElementById('hero-animation');
+    const heroSection = document.getElementById('hero');
     heroSection.style.background = 'radial-gradient(circle at center, rgba(0, 255, 65, 0.2) 0%, transparent 70%)';
     
     // Добавляем несколько "звезд"
@@ -203,8 +182,8 @@ function animate() {
     
     // Вращаем систему частиц
     if (particleSystem) {
+        particleSystem.rotation.y += 0.001;
         particleSystem.rotation.x += 0.0005;
-        particleSystem.rotation.y += 0.0008;
     }
     
     renderer.render(scene, camera);
