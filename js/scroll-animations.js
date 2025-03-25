@@ -2,13 +2,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
     
+    // Устанавливаем начальные состояния для всех секций
+    gsap.set(['#manifesto', '#collection', '#roadmap'], {
+        opacity: 1,
+        visibility: 'visible',
+        display: 'block'
+    });
+    
     // Анимация для секции "О проекте"
     gsap.timeline({
         scrollTrigger: {
             trigger: "#about",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from("#about .section-heading", {
@@ -28,88 +35,105 @@ document.addEventListener('DOMContentLoaded', function() {
         duration: 0.8
     }, "-=0.2");
     
-    // Анимация для секции "Манифест"
+    // Анимация для секции манифеста
     gsap.timeline({
         scrollTrigger: {
-            trigger: "#manifesto",
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            trigger: '#manifesto',
+            start: 'top center',
+            toggleActions: 'play none none none',
+            once: true
         }
     })
-    .from("#manifesto .section-heading", {
+    .from('#manifesto .terminal-container', {
+        opacity: 0,
         y: 50,
-        opacity: 0,
-        duration: 0.8
+        duration: 1,
+        ease: 'power2.out',
+        clearProps: 'all'
     })
-    .from("#manifesto .section-line", {
-        width: 0,
+    .from('#manifesto .terminal-content', {
         opacity: 0,
-        duration: 0.5
-    }, "-=0.3")
-    .from(".terminal-container", {
         y: 30,
+        duration: 1,
+        ease: 'power2.out',
+        clearProps: 'all'
+    }, '-=0.5')
+    .from('#manifesto .terminal-line', {
         opacity: 0,
-        duration: 0.8
-    }, "-=0.2");
-    
-    // Анимация для секции "Коллекция"
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: "#collection",
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-        }
-    })
-    .from("#collection .section-heading", {
-        y: 50,
-        opacity: 0,
-        duration: 0.8
-    })
-    .from("#collection .section-line", {
-        width: 0,
-        opacity: 0,
-        duration: 0.5
-    }, "-=0.3")
-    .from(".filter-btn", {
-        y: 30,
-        opacity: 0,
+        y: 20,
+        duration: 0.8,
         stagger: 0.1,
-        duration: 0.5
-    }, "-=0.2")
-    .from(".nft-card", {
-        x: 100,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.8
-    }, "-=0.3");
+        ease: 'power2.out',
+        clearProps: 'all'
+    }, '-=0.3');
     
-    // Анимация для секции "Дорожная карта"
+    // Анимация для секции коллекции
     gsap.timeline({
         scrollTrigger: {
-            trigger: "#roadmap",
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            trigger: '#collection',
+            start: 'top center',
+            toggleActions: 'play none none none',
+            once: true
         }
     })
-    .from("#roadmap .section-heading", {
-        y: 50,
+    .from('#collection .nft-card', {
         opacity: 0,
-        duration: 0.8
+        y: 50,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power2.out',
+        clearProps: 'all'
     })
-    .from("#roadmap .section-line", {
-        width: 0,
+    .from('#collection .nft-card .nft-image', {
         opacity: 0,
-        duration: 0.5
-    }, "-=0.3")
-    .from(".roadmap-item", {
-        y: 50,
+        scale: 0.8,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power2.out',
+        clearProps: 'all'
+    }, '-=0.5')
+    .from('#collection .nft-card .nft-info', {
         opacity: 0,
+        y: 20,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power2.out',
+        clearProps: 'all'
+    }, '-=0.3');
+    
+    // Анимация для секции дорожной карты
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: '#roadmap',
+            start: 'top center',
+            toggleActions: 'play none none none',
+            once: true
+        }
+    })
+    .from('#roadmap .roadmap-item', {
+        opacity: 0,
+        x: -50,
+        duration: 1,
         stagger: 0.3,
-        duration: 0.8
-    }, "-=0.2");
+        ease: 'power2.out',
+        clearProps: 'all'
+    })
+    .from('#roadmap .roadmap-content', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.3,
+        ease: 'power2.out',
+        clearProps: 'all'
+    }, '-=0.5')
+    .from('#roadmap .roadmap-item .roadmap-icon', {
+        opacity: 0,
+        scale: 0,
+        duration: 0.8,
+        stagger: 0.3,
+        ease: 'back.out(1.7)',
+        clearProps: 'all'
+    }, '-=0.3');
     
     // Анимация для секции "Сообщество"
     gsap.timeline({
@@ -117,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#community",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from("#community .section-heading", {
@@ -147,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: ".newsletter",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
         }
     })
     .from(".newsletter .section-heading", {
@@ -211,26 +235,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         requestAnimationFrame(addRandomGlitches);
     }
-        // Добавление случайных глюков к элементам
-    function addRandomGlitches() {
-        const glitchElements = document.querySelectorAll('.glitch-effect');
-        
-        glitchElements.forEach(element => {
-            if (Math.random() > 0.95) {
-                element.classList.add('active-glitch');
-                setTimeout(() => {
-                    element.classList.remove('active-glitch');
-                }, 200);
-            }
-        });
-        
-        requestAnimationFrame(addRandomGlitches);
-    }
     
     addRandomGlitches();
     
     // Добавляем эффект активации для элементов при скролле
-    const animElements = document.querySelectorAll('.neon-glow, .terminal-container, .nft-card, .roadmap-item');
+    const animElements = document.querySelectorAll('.terminal-container, .nft-card, .roadmap-item');
     
     animElements.forEach(element => {
         ScrollTrigger.create({
@@ -239,9 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
             onEnter: () => {
                 element.classList.add('active');
             },
-            onLeaveBack: () => {
-                element.classList.remove('active');
-            }
+            once: true
         });
     });
     
@@ -258,4 +265,3 @@ document.addEventListener('DOMContentLoaded', function() {
         ease: "none"
     });
 });
-
