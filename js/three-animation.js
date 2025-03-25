@@ -1,7 +1,8 @@
+// Обновленная версия three-animation.js
 let scene, camera, renderer;
-let buddyModel;
+let particleSystem, pixelBuddy;
 let mouseX = 0, mouseY = 0;
-let particleSystem;
+let clock = new THREE.Clock();
 
 function initThree() {
     // Создаем сцену
@@ -11,8 +12,11 @@ function initThree() {
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 5;
     
-    // Настраиваем рендерер
-    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    // Настраиваем рендерер с эффектом пост-обработки
+    renderer = new THREE.WebGLRenderer({ 
+        alpha: true, 
+        antialias: true 
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     document.getElementById('hero-animation').appendChild(renderer.domElement);
@@ -25,18 +29,10 @@ function initThree() {
     directionalLight.position.set(10, 10, 10);
     scene.add(directionalLight);
     
-    const pointLight1 = new THREE.PointLight(0x00ff41, 2, 50);
-    pointLight1.position.set(5, 5, 5);
-    scene.add(pointLight1);
+    // Создаем пиксельного Buddy
+    createPixelBuddy();
     
-    const pointLight2 = new THREE.PointLight(0xff3e9a, 2, 50);
-    pointLight2.position.set(-5, -5, 5);
-    scene.add(pointLight2);
-    
-    // Создаем более "пиксельную" и низкополигональную модель для Buddy
-    createBuddyModel();
-    
-    // Создаем систему частиц
+    // Создаем систему частиц в стиле MegaETH
     createParticleSystem();
     
     // Отслеживание движения мыши для интерактивности
@@ -49,28 +45,37 @@ function initThree() {
     animate();
 }
 
-function createBuddyModel() {
-    // Создаем более "пиксельную" и низкополигональную модель
-    const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
+function createPixelBuddy() {
+    // Создаем пиксельную геометрию для Buddy
+    const geometry = new THREE.BoxGeometry(2, 2, 0.2, 8, 8, 1);
+    
+    // Загружаем текстуру для пиксельного Buddy
+    const textureLoader = new THREE.TextureLoader();
+    const buddyTexture = textureLoader.load('images/buddy_texture.png');
+    buddyTexture.magFilter = THREE.NearestFilter;
+    buddyTexture.minFilter = THREE.NearestFilter;
     
     // Создаем материал с эффектом "глюка"
     const material = new THREE.ShaderMaterial({
         uniforms: {
             time: { value: 0.0 },
-            color1: { value: new THREE.Color(0x00ff41) },
-            color2: { value: new THREE.Color(0xff3e9a) }
+            texture: { value: buddyTexture },
+            glitchIntensity: { value: 0.05 },
+            glowColor: { value: new THREE.Color(0x00ff41) }
         },
         vertexShader: `
             varying vec2 vUv;
             uniform float time;
+            uniform float glitchIntensity;
             
             void main() {
                 vUv = uv;
                 
                 // Добавляем глюк-эффект к вершинам
                 vec3 pos = position;
-                if (sin(time * 2.0 + position.x * 10.0) > 0.9) {
-                    pos.x += sin(time) * 0.1;
+                float glitchFactor = sin(time * 2.0 + position.x * 10.0) * glitchIntensity;
+                if (abs(glitchFactor) > 0.9) {
+                    pos.x += sin(time * 10.0) * 0.1;
                 }
                 
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
@@ -79,48 +84,56 @@ function createBuddyModel() {
         fragmentShader: `
             varying vec2 vUv;
             uniform float time;
-            uniform vec3 color1;
-            uniform vec3 color2;
+            uniform sampler2D texture;
+            uniform float glitchIntensity;
+            uniform vec3 glowColor;
             
             void main() {
-                // Создаем пиксельный эффект
-                vec2 pixelatedUV = floor(vUv * 10.0) / 10.0;
+                // Базовый цвет из текстуры
+                vec2 uv = vUv;
                 
-                // Добавляем шум и глюки
-                float noise = fract(sin(dot(pixelatedUV, vec2(12.9898, 78.233))) * 43758.5453);
-                float glitch = step(0.97, sin(time * 5.0 + noise * 10.0));
-                
-                vec3 finalColor = mix(color1, color2, noise);
-                if (glitch > 0.0) {
-                    finalColor = vec3(1.0) - finalColor;
+                // Добавляем случайные смещения для эффекта глюка
+                float glitchFactor = sin(time * 5.0) * glitchIntensity;
+                if (abs(glitchFactor) > 0.9) {
+                    uv.x += sin(time * 50.0 + uv.y * 20.0) * 0.02;
                 }
                 
-                gl_FragColor = vec4(finalColor, 1.0);
+                vec4 texColor = texture2D(texture, uv);
+                
+                // Добавляем эффект свечения
+                vec3 finalColor = texColor.rgb;
+                if (texColor.a > 0.1) {
+                    finalColor += glowColor * 0.3 * (0.5 + 0.5 * sin(time * 2.0));
+                }
+                
+                gl_FragColor = vec4(finalColor, texColor.a);
             }
-        `
+        `,
+        transparent: true
     });
     
-    buddyModel = new THREE.Mesh(geometry, material);
-    scene.add(buddyModel);
+    pixelBuddy = new THREE.Mesh(geometry, material);
+    scene.add(pixelBuddy);
 }
 
 function createParticleSystem() {
-    // Создаем систему частиц для фона в стиле "матрицы"
-    const particleCount = 500;
+    // Создаем систему частиц в стиле MegaETH
+    const particleCount = 1000;
     const particles = new THREE.BufferGeometry();
     
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const sizes = new Float32Array(particleCount);
+    const speeds = new Float32Array(particleCount);
     
-    const color1 = new THREE.Color(0x00ff41);
-    const color2 = new THREE.Color(0xff3e9a);
+    const color1 = new THREE.Color(0x00ff41); // Зеленый
+    const color2 = new THREE.Color(0xff3e9a); // Розовый
     
     for (let i = 0; i < particleCount; i++) {
         // Позиции
-        positions[i * 3] = (Math.random() - 0.5) * 20;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+        positions[i * 3] = (Math.random() - 0.5) * 30;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
         
         // Цвета
         const colorChoice = Math.random();
@@ -131,12 +144,16 @@ function createParticleSystem() {
         colors[i * 3 + 2] = color.b;
         
         // Размеры
-        sizes[i] = Math.random() * 0.1 + 0.05;
+        sizes[i] = Math.random() * 0.15 + 0.05;
+        
+        // Скорости
+        speeds[i] = Math.random() * 0.02 + 0.01;
     }
     
     particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    particles.setAttribute('speed', new THREE.BufferAttribute(speeds, 1));
     
     const particleMaterial = new THREE.ShaderMaterial({
         uniforms: {
@@ -145,6 +162,7 @@ function createParticleSystem() {
         },
         vertexShader: `
             attribute float size;
+            attribute float speed;
             varying vec3 vColor;
             uniform float time;
             uniform float pixelRatio;
@@ -153,8 +171,8 @@ function createParticleSystem() {
                 vColor = color;
                 vec3 pos = position;
                 
-                // Добавляем падающий эффект как в "Матрице"
-                pos.y -= mod(time * 0.5 + position.x * 0.1 + position.z * 0.1, 20.0);
+                // Добавляем движение частиц в стиле MegaETH
+                pos.y -= mod(time * speed * 5.0 + position.x * 0.1 + position.z * 0.1, 30.0);
                 
                 vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
                 gl_PointSize = size * pixelRatio * (300.0 / -mvPosition.z);
@@ -199,31 +217,34 @@ function onWindowResize() {
 function animate() {
     requestAnimationFrame(animate);
     
+    const elapsedTime = clock.getElapsedTime();
+    
     // Обновляем время для анимации
     if (particleSystem) {
-        particleSystem.material.uniforms.time.value += 0.01;
+        particleSystem.material.uniforms.time.value = elapsedTime;
     }
     
-    if (buddyModel) {
-        buddyModel.material.uniforms.time.value += 0.01;
+    if (pixelBuddy) {
+                pixelBuddy.material.uniforms.time.value = elapsedTime;
+        pixelBuddy.material.uniforms.glitchIntensity.value = 0.05 + Math.sin(elapsedTime * 0.5) * 0.03;
         
         // Вращаем модель Buddy
-        buddyModel.rotation.x += 0.005;
-        buddyModel.rotation.y += 0.005;
+        pixelBuddy.rotation.x += 0.005;
+        pixelBuddy.rotation.y += 0.01;
         
         // Интерактивное движение в зависимости от положения курсора
-        buddyModel.rotation.x += (mouseY - buddyModel.rotation.x) * 0.05;
-        buddyModel.rotation.y += (mouseX - buddyModel.rotation.y) * 0.05;
+        pixelBuddy.rotation.x += (mouseY - pixelBuddy.rotation.x * 0.1) * 0.02;
+        pixelBuddy.rotation.y += (mouseX - pixelBuddy.rotation.y * 0.1) * 0.02;
         
         // Пульсация размера
-        const pulseFactor = Math.sin(Date.now() * 0.001) * 0.05 + 1;
-        buddyModel.scale.set(pulseFactor, pulseFactor, pulseFactor);
+        const pulseFactor = Math.sin(elapsedTime * 2) * 0.05 + 1;
+        pixelBuddy.scale.set(pulseFactor, pulseFactor, pulseFactor);
     }
     
     // Вращаем систему частиц
     if (particleSystem) {
         particleSystem.rotation.x += 0.0005;
-        particleSystem.rotation.y += 0.0005;
+        particleSystem.rotation.y += 0.0008;
     }
     
     renderer.render(scene, camera);
@@ -231,3 +252,4 @@ function animate() {
 
 // Инициализация Three.js при загрузке страницы
 document.addEventListener('DOMContentLoaded', initThree);
+
