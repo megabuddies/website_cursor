@@ -2,6 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
     
+    // Устанавливаем начальные состояния для всех секций
+    gsap.set(["#manifesto", "#collection", "#roadmap"], {
+        opacity: 1,
+        visibility: "visible"
+    });
+    
     // Анимация для секции "О проекте"
     gsap.timeline({
         scrollTrigger: {
@@ -34,23 +40,27 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#manifesto",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none none"
+            toggleActions: "play none none none",
+            once: true
         }
     })
     .from("#manifesto .section-heading", {
-        y: 50,
+        y: 30,
         opacity: 0,
-        duration: 0.8
+        duration: 0.8,
+        ease: "power2.out"
     })
     .from("#manifesto .section-line", {
         width: 0,
         opacity: 0,
-        duration: 0.5
+        duration: 0.5,
+        ease: "power2.out"
     }, "-=0.3")
     .from(".terminal-container", {
         y: 30,
         opacity: 0,
-        duration: 0.8
+        duration: 0.8,
+        ease: "power2.out"
     }, "-=0.2");
     
     // Анимация для секции "Коллекция"
@@ -59,30 +69,35 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#collection",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none none"
+            toggleActions: "play none none none",
+            once: true
         }
     })
     .from("#collection .section-heading", {
-        y: 50,
+        y: 30,
         opacity: 0,
-        duration: 0.8
+        duration: 0.8,
+        ease: "power2.out"
     })
     .from("#collection .section-line", {
         width: 0,
         opacity: 0,
-        duration: 0.5
+        duration: 0.5,
+        ease: "power2.out"
     }, "-=0.3")
     .from(".filter-btn", {
         y: 30,
         opacity: 0,
         stagger: 0.1,
-        duration: 0.5
+        duration: 0.5,
+        ease: "power2.out"
     }, "-=0.2")
     .from(".nft-card", {
-        x: 100,
+        y: 50,
         opacity: 0,
         stagger: 0.15,
-        duration: 0.8
+        duration: 0.8,
+        ease: "power2.out"
     }, "-=0.3");
     
     // Анимация для секции "Дорожная карта"
@@ -91,24 +106,28 @@ document.addEventListener('DOMContentLoaded', function() {
             trigger: "#roadmap",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none none"
+            toggleActions: "play none none none",
+            once: true
         }
     })
     .from("#roadmap .section-heading", {
-        y: 50,
+        y: 30,
         opacity: 0,
-        duration: 0.8
+        duration: 0.8,
+        ease: "power2.out"
     })
     .from("#roadmap .section-line", {
         width: 0,
         opacity: 0,
-        duration: 0.5
+        duration: 0.5,
+        ease: "power2.out"
     }, "-=0.3")
     .from(".roadmap-item", {
         y: 50,
         opacity: 0,
         stagger: 0.3,
-        duration: 0.8
+        duration: 0.8,
+        ease: "power2.out"
     }, "-=0.2");
     
     // Анимация для секции "Сообщество"
@@ -211,26 +230,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         requestAnimationFrame(addRandomGlitches);
     }
-        // Добавление случайных глюков к элементам
-    function addRandomGlitches() {
-        const glitchElements = document.querySelectorAll('.glitch-effect');
-        
-        glitchElements.forEach(element => {
-            if (Math.random() > 0.95) {
-                element.classList.add('active-glitch');
-                setTimeout(() => {
-                    element.classList.remove('active-glitch');
-                }, 200);
-            }
-        });
-        
-        requestAnimationFrame(addRandomGlitches);
-    }
     
     addRandomGlitches();
     
     // Добавляем эффект активации для элементов при скролле
-    const animElements = document.querySelectorAll('.neon-glow, .terminal-container, .nft-card, .roadmap-item');
+    const animElements = document.querySelectorAll('.terminal-container, .nft-card, .roadmap-item');
     
     animElements.forEach(element => {
         ScrollTrigger.create({
@@ -239,9 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
             onEnter: () => {
                 element.classList.add('active');
             },
-            onLeaveBack: () => {
-                element.classList.remove('active');
-            }
+            once: true
         });
     });
     
