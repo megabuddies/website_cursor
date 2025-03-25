@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleActions: "play none none reverse"
         }
     })
-    .from(".about-content .section-heading", {
+    .from("#about .section-heading", {
         y: 50,
         opacity: 0,
         duration: 0.8
     })
-    .from(".about-content .section-line", {
+    .from("#about .section-line", {
         width: 0,
         opacity: 0,
         duration: 0.5
@@ -37,12 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleActions: "play none none reverse"
         }
     })
-    .from(".manifesto .section-heading", {
+    .from("#manifesto .section-heading", {
         y: 50,
         opacity: 0,
         duration: 0.8
     })
-    .from(".manifesto .section-line", {
+    .from("#manifesto .section-line", {
         width: 0,
         opacity: 0,
         duration: 0.5
@@ -62,12 +62,12 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleActions: "play none none reverse"
         }
     })
-    .from(".collection-preview .section-heading", {
+    .from("#collection .section-heading", {
         y: 50,
         opacity: 0,
         duration: 0.8
     })
-    .from(".collection-preview .section-line", {
+    .from("#collection .section-line", {
         width: 0,
         opacity: 0,
         duration: 0.5
@@ -94,12 +94,12 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleActions: "play none none reverse"
         }
     })
-    .from(".roadmap .section-heading", {
+    .from("#roadmap .section-heading", {
         y: 50,
         opacity: 0,
         duration: 0.8
     })
-    .from(".roadmap .section-line", {
+    .from("#roadmap .section-line", {
         width: 0,
         opacity: 0,
         duration: 0.5
@@ -120,12 +120,12 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleActions: "play none none reverse"
         }
     })
-    .from(".community .section-heading", {
+    .from("#community .section-heading", {
         y: 50,
         opacity: 0,
         duration: 0.8
     })
-    .from(".community .section-line", {
+    .from("#community .section-line", {
         width: 0,
         opacity: 0,
         duration: 0.5
@@ -211,6 +211,51 @@ document.addEventListener('DOMContentLoaded', function() {
         
         requestAnimationFrame(addRandomGlitches);
     }
+        // Добавление случайных глюков к элементам
+    function addRandomGlitches() {
+        const glitchElements = document.querySelectorAll('.glitch-effect');
+        
+        glitchElements.forEach(element => {
+            if (Math.random() > 0.95) {
+                element.classList.add('active-glitch');
+                setTimeout(() => {
+                    element.classList.remove('active-glitch');
+                }, 200);
+            }
+        });
+        
+        requestAnimationFrame(addRandomGlitches);
+    }
     
     addRandomGlitches();
+    
+    // Добавляем эффект активации для элементов при скролле
+    const animElements = document.querySelectorAll('.neon-glow, .terminal-container, .nft-card, .roadmap-item');
+    
+    animElements.forEach(element => {
+        ScrollTrigger.create({
+            trigger: element,
+            start: "top 85%",
+            onEnter: () => {
+                element.classList.add('active');
+            },
+            onLeaveBack: () => {
+                element.classList.remove('active');
+            }
+        });
+    });
+    
+    // Параллакс эффект для фона
+    gsap.to("#hero-animation", {
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+        },
+        y: 100,
+        opacity: 0.5,
+        ease: "none"
+    });
 });
+
