@@ -15,6 +15,7 @@
 </head>
 <body>
     <div class="scan-line"></div>
+    <div id="background-animation" class="fullscreen-bg"></div>
     
     <!-- Хедер -->
     <header class="main-header">
@@ -49,7 +50,10 @@
         <div id="hero-animation"></div>
         
         <div class="hero-content">
-            <h1 class="hero-title neon-text glitch-effect" data-text="MEGA BUDDIES">MEGA BUDDIES</h1>
+            <div class="glitch-container">
+                <h1 class="hero-title neon-text glitch-effect" data-text="MEGA BUDDIES">MEGA BUDDIES</h1>
+                <div class="hero-badge neon-pulse">REVOLUTION</div>
+            </div>
             <p class="hero-subtitle terminal-effect">Не просто NFT. Мы - движение бунтарей, возвращающих истинный дух криптовалют.</p>
             <div class="hero-buttons">
                 <a href="#collection" class="btn-primary neon-button">ПРИСОЕДИНИТЬСЯ К РЕВОЛЮЦИИ</a>
@@ -173,45 +177,53 @@
             <div class="section-line"></div>
             
             <div class="roadmap-container">
-                <div class="roadmap-line"></div>
+                <div class="roadmap-timeline"></div>
                 
                 <div class="roadmap-items">
                     <div class="roadmap-item">
-                        <div class="roadmap-dot neon-pulse"></div>
+                        <div class="roadmap-icon neon-pulse">
+                            <i class="fas fa-rocket"></i>
+                        </div>
                         <div class="roadmap-content neon-glow">
                             <h3 class="roadmap-date">Q2 2025</h3>
                             <h4>ЗАПУСК MEGA BUDDIES</h4>
-                            <p>Выпуск первой коллекции NFT, запуск сообщества и распространение манифеста. Начало революции в мире криптовалют.</p>
+                            <p>Выпуск первой коллекции NFT, запуск сообщества и распространение манифеста.</p>
                             <div class="roadmap-status completed">ЗАВЕРШЕНО</div>
                         </div>
                     </div>
                     
                     <div class="roadmap-item">
-                        <div class="roadmap-dot neon-pulse"></div>
+                        <div class="roadmap-icon neon-pulse">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
                         <div class="roadmap-content neon-glow">
                             <h3 class="roadmap-date">Q3 2025</h3>
                             <h4>РАСШИРЕНИЕ ЭКОСИСТЕМЫ</h4>
-                            <p>Запуск образовательной платформы о криптовалютах, партнерства с проектами в экосистеме MegaETH, создание первых инструментов для повседневного использования.</p>
+                            <p>Запуск образовательной платформы о криптовалютах, партнерства с проектами в экосистеме MegaETH.</p>
                             <div class="roadmap-status in-progress">В ПРОЦЕССЕ</div>
                         </div>
                     </div>
                     
                     <div class="roadmap-item">
-                        <div class="roadmap-dot"></div>
+                        <div class="roadmap-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
                         <div class="roadmap-content neon-glow">
                             <h3 class="roadmap-date">Q4 2025</h3>
                             <h4>MEGA BUDDIES DAO</h4>
-                            <p>Создание децентрализованной автономной организации для управления проектом. Держатели NFT получат право голоса в принятии решений о будущем проекта.</p>
+                            <p>Создание децентрализованной автономной организации для управления проектом.</p>
                             <div class="roadmap-status planned">ЗАПЛАНИРОВАНО</div>
                         </div>
                     </div>
                     
                     <div class="roadmap-item">
-                        <div class="roadmap-dot"></div>
+                        <div class="roadmap-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
                         <div class="roadmap-content neon-glow">
                             <h3 class="roadmap-date">Q1 2026</h3>
                             <h4>ГЛОБАЛЬНАЯ ЭКСПАНСИЯ</h4>
-                            <p>Расширение движения на международный уровень, локализация проекта на разные языки, проведение офлайн-мероприятий в разных странах.</p>
+                            <p>Расширение движения на международный уровень, локализация проекта на разные языки.</p>
                             <div class="roadmap-status planned">ЗАПЛАНИРОВАНО</div>
                         </div>
                     </div>
@@ -231,14 +243,14 @@
                     <h3 class="community-heading">СЛЕДИТЕ ЗА НАМИ В TWITTER</h3>
                     <div class="social-icon"><i class="fab fa-twitter"></i></div>
                     <p>Присоединяйтесь к нашему Twitter, чтобы быть в курсе последних новостей, анонсов и инсайтов о проекте Mega Buddies.</p>
-                    <a href="https://twitter.com/mega_buddies" target="_blank" class="primary-btn neon-button">ПОДПИСАТЬСЯ</a>
+                    <a href="https://twitter.com/mega_buddies" target="_blank" class="community-btn neon-button">ПОДПИСАТЬСЯ</a>
                 </div>
                 
                 <div class="discord-community neon-glow">
                     <h3 class="community-heading">ПРИСОЕДИНЯЙТЕСЬ К DISCORD</h3>
                     <div class="social-icon"><i class="fab fa-discord"></i></div>
                     <p>Наше сообщество в Discord - это место, где собираются единомышленники, готовые изменить будущее криптовалют и вернуть им истинное предназначение.</p>
-                    <a href="https://discord.gg/megabuddies" target="_blank" class="join-discord">ПРИСОЕДИНИТЬСЯ</a>
+                    <a href="https://discord.gg/megabuddies" target="_blank" class="community-btn neon-button">ПРИСОЕДИНИТЬСЯ</a>
                 </div>
             </div>
         </div>
@@ -287,7 +299,7 @@
                     </ul>
                 </div>
                 
-                                <div class="footer-nav-section">
+                <div class="footer-nav-section">
                     <h3 class="footer-nav-title">Ресурсы</h3>
                     <ul class="footer-nav-links">
                         <li class="footer-nav-link"><a href="#">Whitepaper</a></li>
@@ -316,6 +328,6 @@
     <script src="js/main.js"></script>
     <script src="js/three-animation.js"></script>
     <script src="js/scroll-animations.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </body>
 </html>
+
