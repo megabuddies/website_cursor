@@ -24,7 +24,8 @@ function initThree() {
             });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            document.getElementById('hero-animation').appendChild(renderer.domElement);
+            renderer.domElement.classList.add('fullscreen-bg');
+            document.body.appendChild(renderer.domElement);
             
             // Добавляем освещение
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -39,6 +40,9 @@ function initThree() {
             
             // Создаем систему частиц в стиле MegaETH
             createParticleSystem();
+            
+            // Создаем сетку
+            createGrid();
             
             // Отслеживание движения мыши для интерактивности
             document.addEventListener('mousemove', onDocumentMouseMove);
@@ -134,6 +138,19 @@ function createParticleSystem() {
     
     particleSystem = new THREE.Points(particles, particleMaterial);
     scene.add(particleSystem);
+}
+
+function createGrid() {
+    // Создаем сетку для фона
+    const gridSize = 50;
+    const gridDivisions = 50;
+    const gridColor = 0x00ff41;
+    
+    const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, gridColor, gridColor);
+    gridHelper.material.opacity = 0.1;
+    gridHelper.material.transparent = true;
+    gridHelper.position.y = -5;
+    scene.add(gridHelper);
 }
 
 function createFallbackAnimation() {
